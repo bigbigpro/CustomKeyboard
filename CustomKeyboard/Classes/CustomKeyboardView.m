@@ -547,14 +547,17 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         // 数字键使用25px字体
         button.titleLabel.font = [UIFont systemFontOfSize:25];
     } else if ([keyText containsString:@"⌫"]) {
-        // 退格键使用30px字体
-        button.titleLabel.font = [UIFont systemFontOfSize:30 weight:UIFontWeightLight];
+        // 退格键使用23px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:23];
     } else if ([self isLetter:keyText]) {
         // 字母键使用23px字体
         button.titleLabel.font = [UIFont systemFontOfSize:23];
+    } else if ([self isSymbol:keyText]) {
+        // 符号键使用23px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:23];
     } else {
-        // 其他按键使用18px字体
-        button.titleLabel.font = [UIFont systemFontOfSize:18];
+        // 其他按键使用16px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:16];
     }
     button.layer.cornerRadius = 6;
     button.layer.masksToBounds = NO; // 改为NO，允许阴影显示
@@ -613,6 +616,18 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     return character >= '0' && character <= '9';
 }
 
+- (BOOL)isSymbol:(NSString *)text {
+    if (text.length != 1) return NO;
+    unichar character = [text characterAtIndex:0];
+    // 检查是否为符号字符
+    return (character >= 33 && character <= 47) || // ! " # $ % & ' ( ) * + , - . /
+           (character >= 58 && character <= 64) || // : ; < = > ? @
+           (character >= 91 && character <= 96) || // [ \ ] ^ _ `
+           (character >= 123 && character <= 126) || // { | } ~
+           character == 171 || character == 187 || // « »
+           character == 165; // ¥
+}
+
 - (void)createFunctionKeysRow:(UIView *)previousRow {
     UIView *functionRow = [[UIView alloc] init];
     functionRow.backgroundColor = [UIColor clearColor];
@@ -636,7 +651,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         CGFloat totalSpacing = 2 * 6; // 3个键之间有2个间距
         CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing;
         
-        CGFloat smallKeyWidth = 50; // ABC键的宽度
+        CGFloat smallKeyWidth = 90; // ABC键的宽度
         CGFloat doneKeyWidth = 90; // 完成键宽度（更宽）
         CGFloat spaceKeyWidth = availableWidth - smallKeyWidth - doneKeyWidth; // 空格键宽度
         
