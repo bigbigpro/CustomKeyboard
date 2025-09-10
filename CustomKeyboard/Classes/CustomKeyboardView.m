@@ -89,8 +89,9 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     // 测试图片加载
     [self testImageLoading];
     
-    // 设置键盘视图的高度
-    CGFloat keyboardHeight = 300; // 设置一个固定的键盘高度
+    // 设置键盘高度为实际需要的高度
+    // 标题：30px + 间距：10px + 3行按键：3×44px + 行间距：32px + 功能键：44px + 底部留白：12px = 260px
+    CGFloat keyboardHeight = 260;
     self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardHeight);
     
     // 创建键盘容器
@@ -98,14 +99,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     self.keyboardContainer.backgroundColor = [UIColor colorWithRed:0.77 green:0.78 blue:0.82 alpha:0.9];
     [self addSubview:self.keyboardContainer];
     
-    // 设置约束
-    self.keyboardContainer.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.keyboardContainer.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.keyboardContainer.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [self.keyboardContainer.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [self.keyboardContainer.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
+    // 设置键盘容器为固定高度，包含底部留白
+    self.keyboardContainer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardHeight - 12);
     
     // 添加标题
     if (self.showTitle) {
@@ -159,14 +154,20 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [self.keyboardContainer addSubview:rowView];
         
         rowView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // 根据键盘类型设置不同的行高度
+        CGFloat rowHeight = (self.currentKeyboardType == KeyboardTypeNumbers) ? 50 : 44;
+        
         [NSLayoutConstraint activateConstraints:@[
             [rowView.leadingAnchor constraintEqualToAnchor:self.keyboardContainer.leadingAnchor constant:8],
             [rowView.trailingAnchor constraintEqualToAnchor:self.keyboardContainer.trailingAnchor constant:-8],
-            [rowView.heightAnchor constraintEqualToConstant:50]
+            [rowView.heightAnchor constraintEqualToConstant:rowHeight]
         ]];
         
         if (previousRow) {
-            [rowView.topAnchor constraintEqualToAnchor:previousRow.bottomAnchor constant:8].active = YES;
+            // 根据键盘类型设置不同的行间距
+            CGFloat rowSpacing = (self.currentKeyboardType == KeyboardTypeNumbers) ? 8 : 12;
+            [rowView.topAnchor constraintEqualToAnchor:previousRow.bottomAnchor constant:rowSpacing].active = YES;
         } else {
             [rowView.topAnchor constraintEqualToAnchor:self.showTitle ? self.titleLabel.bottomAnchor : self.keyboardContainer.topAnchor constant:self.showTitle ? 10 : 20].active = YES;
         }
@@ -564,7 +565,21 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     }
     
     [button setTitle:displayText forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:18];
+    
+    // 根据按键类型设置字体大小
+    if ([self isNumber:keyText]) {
+        // 数字键使用25px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:25];
+    } else if ([keyText containsString:@"⌫"]) {
+        // 退格键使用30px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:30 weight:UIFontWeightLight];
+    } else if ([self isLetter:keyText]) {
+        // 字母键使用23px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:23];
+    } else {
+        // 其他按键使用18px字体
+        button.titleLabel.font = [UIFont systemFontOfSize:18];
+    }
     button.layer.cornerRadius = 8;
     button.layer.masksToBounds = NO; // 改为NO，允许阴影显示
     
@@ -616,6 +631,12 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     return (character >= 'a' && character <= 'z') || (character >= 'A' && character <= 'Z');
 }
 
+- (BOOL)isNumber:(NSString *)text {
+    if (text.length != 1) return NO;
+    unichar character = [text characterAtIndex:0];
+    return character >= '0' && character <= '9';
+}
+
 - (void)createFunctionKeysRow:(UIView *)previousRow {
     UIView *functionRow = [[UIView alloc] init];
     functionRow.backgroundColor = [UIColor clearColor];
@@ -626,7 +647,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [functionRow.leadingAnchor constraintEqualToAnchor:self.keyboardContainer.leadingAnchor constant:8],
         [functionRow.trailingAnchor constraintEqualToAnchor:self.keyboardContainer.trailingAnchor constant:-8],
         [functionRow.topAnchor constraintEqualToAnchor:previousRow.bottomAnchor constant:8],
-        [functionRow.heightAnchor constraintEqualToConstant:50]
+        [functionRow.heightAnchor constraintEqualToConstant:44]
     ]];
     
     // 根据键盘类型创建不同的功能键
@@ -640,8 +661,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing;
         
         CGFloat smallKeyWidth = 50; // ABC键的宽度
-        CGFloat spaceKeyWidth = availableWidth - smallKeyWidth * 2; // 空格键宽度
-        CGFloat doneKeyWidth = smallKeyWidth; // 完成键宽度
+        CGFloat doneKeyWidth = 80; // 完成键宽度（更宽）
+        CGFloat spaceKeyWidth = availableWidth - smallKeyWidth - doneKeyWidth; // 空格键宽度
         
         keyWidths = @[@(smallKeyWidth), @(spaceKeyWidth), @(doneKeyWidth)];
     } else {
@@ -650,10 +671,10 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         CGFloat totalSpacing = 3 * 6; // 4个键之间有3个间距
         CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing;
         
-        // 计算按键宽度：符和123使用相同宽度，空格更宽，完成使用相同宽度
+        // 计算按键宽度：符和123使用相同宽度，空格更宽，完成键更宽
         CGFloat smallKeyWidth = 50; // 符和123的宽度
-        CGFloat spaceKeyWidth = availableWidth - smallKeyWidth * 3; // 空格键宽度
-        CGFloat doneKeyWidth = smallKeyWidth; // 完成键宽度
+        CGFloat doneKeyWidth = 80; // 完成键宽度（更宽）
+        CGFloat spaceKeyWidth = availableWidth - smallKeyWidth * 2 - doneKeyWidth; // 空格键宽度
         
         keyWidths = @[@(smallKeyWidth), @(smallKeyWidth), @(spaceKeyWidth), @(doneKeyWidth)];
     }
@@ -669,7 +690,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [NSLayoutConstraint activateConstraints:@[
             [button.topAnchor constraintEqualToAnchor:functionRow.topAnchor],
             [button.bottomAnchor constraintEqualToAnchor:functionRow.bottomAnchor],
-            [button.widthAnchor constraintEqualToConstant:currentKeyWidth]
+            [button.widthAnchor constraintEqualToConstant:currentKeyWidth],
+            [button.heightAnchor constraintEqualToConstant:44]
         ]];
         
         if (i == 0) {
