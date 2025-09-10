@@ -7,6 +7,7 @@
 //
 
 #import "CustomKeyboardView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 typedef NS_ENUM(NSInteger, KeyboardType) {
     KeyboardTypeLetters,
@@ -48,6 +49,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     self = [super init];
     if (self) {
         _showTitle = title.length > 0;
+        // 默认启用震动反馈
+        [self setHapticFeedbackEnabled:YES];
         [self setupKeyboardData];
         [self setupUI];
     }
@@ -401,14 +404,26 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 - (UIButton *)createCapsLockButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.layer.cornerRadius = 8;
-    button.layer.masksToBounds = YES;
+    button.layer.masksToBounds = NO; // 允许阴影显示
     // 使用浅灰色背景，匹配效果图
     button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+    
+    // 添加阴影效果
+    button.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(0, 1);
+    button.layer.shadowOpacity = 0.2;
+    button.layer.shadowRadius = 1.0;
     
     // 设置大小写切换图标
     [self updateCapsLockButtonAppearance];
     
     [button addTarget:self action:@selector(capsLockButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 添加按下效果
+    [button addTarget:self action:@selector(keyButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
     
     return button;
 }
@@ -477,12 +492,21 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     [button setTitle:displayText forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:18];
     button.layer.cornerRadius = 8;
-    button.layer.masksToBounds = YES;
+    button.layer.masksToBounds = NO; // 改为NO，允许阴影显示
+    
+    // 添加阴影效果
+    button.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(0, 1);
+    button.layer.shadowOpacity = 0.2;
+    button.layer.shadowRadius = 1.0;
     
     // 根据按键类型设置样式 - 匹配效果图
     if ([keyText isEqualToString:@"完成"]) {
         button.backgroundColor = [UIColor systemBlueColor];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        // 完成键使用更明显的阴影
+        button.layer.shadowOpacity = 0.3;
+        button.layer.shadowRadius = 2.0;
     } else if ([keyText isEqualToString:@"符"] || [keyText isEqualToString:@"123"] || [keyText isEqualToString:@"ABC"] || [keyText isEqualToString:@"#+="]) {
         // 功能键使用浅灰色背景
         button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
@@ -502,6 +526,12 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     
     // 添加点击效果
     [button addTarget:self action:@selector(keyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 添加按下效果
+    [button addTarget:self action:@selector(keyButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+    [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
     
     return button;
 }
@@ -589,6 +619,9 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 
 - (void)keyButtonTapped:(UIButton *)sender {
     NSString *keyText = sender.titleLabel.text;
+    
+    // 添加震动反馈
+    [self triggerHapticFeedbackForKey:keyText];
     
     if ([keyText isEqualToString:@"完成"]) {
         if ([self.delegate respondsToSelector:@selector(customKeyboardDidTapDone)]) {
@@ -682,6 +715,79 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
             }
         });
     }
+}
+
+- (void)keyButtonTouchDown:(UIButton *)sender {
+    // 按下时的效果：减少阴影，让按钮看起来被按下
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.shadowOpacity = 0.1;
+        sender.layer.shadowRadius = 0.5;
+        sender.transform = CGAffineTransformMakeScale(0.95, 0.95);
+    }];
+}
+
+- (void)keyButtonTouchUp:(UIButton *)sender {
+    // 松开时的效果：恢复阴影和大小
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.shadowOpacity = 0.2;
+        sender.layer.shadowRadius = 1.0;
+        sender.transform = CGAffineTransformIdentity;
+        
+        // 完成键的特殊阴影
+        if ([sender.titleLabel.text isEqualToString:@"完成"]) {
+            sender.layer.shadowOpacity = 0.3;
+            sender.layer.shadowRadius = 2.0;
+        }
+    }];
+}
+
+#pragma mark - Haptic Feedback
+
+- (void)triggerHapticFeedbackForKey:(NSString *)keyText {
+    if (!self.hapticFeedbackEnabled) {
+        return;
+    }
+    
+    // 检查设备是否支持震动反馈
+    if (@available(iOS 10.0, *)) {
+        UIImpactFeedbackGenerator *feedbackGenerator;
+        
+        // 根据按键类型选择不同的震动强度
+        if ([keyText isEqualToString:@"完成"]) {
+            // 完成键使用强震动
+            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
+        } else if ([keyText isEqualToString:@"空格"] || [keyText containsString:@"⌫"]) {
+            // 空格键和退格键使用中等震动
+            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+        } else if ([keyText isEqualToString:@"符"] || [keyText isEqualToString:@"123"] || [keyText isEqualToString:@"ABC"] || [keyText isEqualToString:@"#+="]) {
+            // 功能键使用轻震动
+            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+        } else {
+            // 字母和数字键使用轻震动
+            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+        }
+        
+        [feedbackGenerator impactOccurred];
+    } else {
+        // iOS 10 以下使用系统震动
+        AudioServicesPlaySystemSound(1519); // 轻微震动
+    }
+}
+
+- (void)setHapticFeedbackEnabled:(BOOL)hapticFeedbackEnabled {
+    // 保存到用户偏好设置
+    [[NSUserDefaults standardUserDefaults] setBool:hapticFeedbackEnabled forKey:@"CustomKeyboardHapticFeedbackEnabled"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)hapticFeedbackEnabled {
+    // 从用户偏好设置中读取
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"CustomKeyboardHapticFeedbackEnabled"] != nil) {
+        return [defaults boolForKey:@"CustomKeyboardHapticFeedbackEnabled"];
+    }
+    
+    return YES; // 默认启用
 }
 
 @end

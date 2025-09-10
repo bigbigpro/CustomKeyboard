@@ -56,12 +56,39 @@
         [instructionLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
         [instructionLabel.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
     ]];
+    
+    // 添加震动反馈开关
+    UISwitch *hapticSwitch = [[UISwitch alloc] init];
+    hapticSwitch.on = YES;
+    hapticSwitch.translatesAutoresizingMaskIntoConstraints = NO;
+    [hapticSwitch addTarget:self action:@selector(hapticSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:hapticSwitch];
+    
+    UILabel *hapticLabel = [[UILabel alloc] init];
+    hapticLabel.text = @"震动反馈";
+    hapticLabel.font = [UIFont systemFontOfSize:16];
+    hapticLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:hapticLabel];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [hapticLabel.topAnchor constraintEqualToAnchor:instructionLabel.bottomAnchor constant:30],
+        [hapticLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
+        [hapticLabel.centerYAnchor constraintEqualToAnchor:hapticSwitch.centerYAnchor]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [hapticSwitch.topAnchor constraintEqualToAnchor:instructionLabel.bottomAnchor constant:30],
+        [hapticSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
+    ]];
 }
 
 - (void)setupCustomKeyboard {
     // 使用单例自定义键盘
     CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
     customKeyboard.delegate = self;
+    
+    // 启用震动反馈
+    customKeyboard.hapticFeedbackEnabled = YES;
     
     // 确保键盘有正确的高度
     CGFloat keyboardHeight = 300;
@@ -70,7 +97,7 @@
     // 设置文本框的输入视图为自定义键盘
     self.textField.inputView = customKeyboard;
     
-    NSLog(@"自定义键盘已设置，高度: %.0f", keyboardHeight);
+    NSLog(@"自定义键盘已设置，高度: %.0f，震动反馈: %@", keyboardHeight, customKeyboard.hapticFeedbackEnabled ? @"启用" : @"禁用");
 }
 
 #pragma mark - CustomKeyboardDelegate
@@ -103,6 +130,13 @@
 
 - (void)customKeyboardDidToggleCapsLock {
     NSLog(@"大小写切换");
+}
+
+- (void)hapticSwitchChanged:(UISwitch *)sender {
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    customKeyboard.hapticFeedbackEnabled = sender.isOn;
+    
+    NSLog(@"震动反馈已%@", sender.isOn ? @"启用" : @"禁用");
 }
 
 - (void)viewDidAppear:(BOOL)animated {
