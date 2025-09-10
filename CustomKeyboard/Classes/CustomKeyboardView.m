@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *symbolKeys;
 @property (nonatomic, assign) CapsLockState capsLockState;
 @property (nonatomic, strong) UIButton *capsLockButton;
+@property (nonatomic, strong) NSTimer *backspaceTimer;
 
 @end
 
@@ -55,6 +56,10 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [self setupUI];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self stopBackspaceTimer];
 }
 
 - (void)setupKeyboardData {
@@ -595,6 +600,13 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     // 添加点击效果
     [button addTarget:self action:@selector(keyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
+    // 为退格键添加长按功能
+    if ([keyText containsString:@"⌫"]) {
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(backspaceLongPress:)];
+        longPress.minimumPressDuration = 0.5; // 0.5秒后开始连续删除
+        [button addGestureRecognizer:longPress];
+    }
+    
     // 添加按下效果
     [button addTarget:self action:@selector(keyButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
@@ -744,6 +756,47 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         if ([self.delegate respondsToSelector:@selector(customKeyboardDidTapKey:)]) {
             [self.delegate customKeyboardDidTapKey:keyText];
         }
+    }
+}
+
+- (void)backspaceLongPress:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        // 开始长按，启动定时器
+        [self startBackspaceTimer];
+    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        // 结束长按，停止定时器
+        [self stopBackspaceTimer];
+    }
+}
+
+- (void)startBackspaceTimer {
+    [self stopBackspaceTimer]; // 先停止之前的定时器
+    
+    // 立即执行一次删除
+    [self performBackspace];
+    
+    // 启动定时器，每0.1秒执行一次删除
+    self.backspaceTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                           target:self
+                                                         selector:@selector(performBackspace)
+                                                         userInfo:nil
+                                                          repeats:YES];
+}
+
+- (void)stopBackspaceTimer {
+    if (self.backspaceTimer) {
+        [self.backspaceTimer invalidate];
+        self.backspaceTimer = nil;
+    }
+}
+
+- (void)performBackspace {
+    // 添加震动反馈
+    [self triggerHapticFeedbackForKey:@"⌫"];
+    
+    // 执行退格操作
+    if ([self.delegate respondsToSelector:@selector(customKeyboardDidTapBackspace)]) {
+        [self.delegate customKeyboardDidTapBackspace];
     }
 }
 
