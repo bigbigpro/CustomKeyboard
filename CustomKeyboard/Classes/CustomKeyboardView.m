@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 }
 
 - (void)setupUI {
-    self.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.97 alpha:1.0];
+    self.backgroundColor = [UIColor colorWithRed:0.77 green:0.78 blue:0.82 alpha:0.9];
     
     // 测试图片加载
     [self testImageLoading];
@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     
     // 创建键盘容器
     self.keyboardContainer = [[UIView alloc] init];
-    self.keyboardContainer.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.97 alpha:1.0];
+    self.keyboardContainer.backgroundColor = [UIColor colorWithRed:0.77 green:0.78 blue:0.82 alpha:0.9];
     [self addSubview:self.keyboardContainer];
     
     // 设置约束
@@ -367,11 +367,14 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     UIButton *backspaceButton = [self createKeyButton:@"⌫"];
     [rowView addSubview:backspaceButton];
     
-    // 设置约束 - 根据效果图调整布局：符+ABC+0+退格键
-    CGFloat specialKeyWidth = 50; // 特殊键宽度
-    CGFloat totalSpacing = 3 * 6; // 4个键之间有3个间距
-    CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing - specialKeyWidth * 3; // 减去左右边距、间距和特殊键宽度
-    CGFloat zeroKeyWidth = availableWidth; // 0键占据剩余宽度
+    // 设置约束 - 0键与8键对齐，符键和ABC键总宽度与数字键宽度一致
+    CGFloat totalSpacing = 2 * 6; // 符键和ABC键之间有1个间距，0键和退格键之间有1个间距
+    CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing; // 减去左右边距和间距
+    CGFloat singleNumberKeyWidth = availableWidth / 3; // 单个数字键宽度（与前三行数字键相同，每行3个键）
+    CGFloat functionKeysGap = 6; // 符键和ABC键之间的间隙
+    CGFloat functionKeysTotalWidth = singleNumberKeyWidth - functionKeysGap; // 符键和ABC键总宽度（减去间隙）
+    CGFloat functionKeyWidth = functionKeysTotalWidth / 2; // 每个功能键宽度
+    CGFloat numberKeyWidth = singleNumberKeyWidth; // 0键和退格键宽度
     
     // 符键
     symbolButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -379,7 +382,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [symbolButton.topAnchor constraintEqualToAnchor:rowView.topAnchor],
         [symbolButton.bottomAnchor constraintEqualToAnchor:rowView.bottomAnchor],
         [symbolButton.leadingAnchor constraintEqualToAnchor:rowView.leadingAnchor],
-        [symbolButton.widthAnchor constraintEqualToConstant:specialKeyWidth]
+        [symbolButton.widthAnchor constraintEqualToConstant:functionKeyWidth]
     ]];
     
     // ABC键
@@ -388,16 +391,16 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [abcButton.topAnchor constraintEqualToAnchor:rowView.topAnchor],
         [abcButton.bottomAnchor constraintEqualToAnchor:rowView.bottomAnchor],
         [abcButton.leadingAnchor constraintEqualToAnchor:symbolButton.trailingAnchor constant:6],
-        [abcButton.widthAnchor constraintEqualToConstant:specialKeyWidth]
+        [abcButton.widthAnchor constraintEqualToConstant:functionKeyWidth]
     ]];
     
-    // 0键
+    // 0键 - 与8键对齐，位于中间位置
     zeroButton.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [zeroButton.topAnchor constraintEqualToAnchor:rowView.topAnchor],
         [zeroButton.bottomAnchor constraintEqualToAnchor:rowView.bottomAnchor],
-        [zeroButton.leadingAnchor constraintEqualToAnchor:abcButton.trailingAnchor constant:6],
-        [zeroButton.widthAnchor constraintEqualToConstant:zeroKeyWidth]
+        [zeroButton.centerXAnchor constraintEqualToAnchor:rowView.centerXAnchor],
+        [zeroButton.widthAnchor constraintEqualToConstant:numberKeyWidth]
     ]];
     
     // 退格键
@@ -407,7 +410,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [backspaceButton.bottomAnchor constraintEqualToAnchor:rowView.bottomAnchor],
         [backspaceButton.leadingAnchor constraintEqualToAnchor:zeroButton.trailingAnchor constant:6],
         [backspaceButton.trailingAnchor constraintEqualToAnchor:rowView.trailingAnchor],
-        [backspaceButton.widthAnchor constraintEqualToConstant:specialKeyWidth]
+        [backspaceButton.widthAnchor constraintEqualToConstant:numberKeyWidth]
     ]];
     
     return rowView;
@@ -416,7 +419,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 - (UIButton *)createCapsLockButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.layer.cornerRadius = 8;
-    button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+    button.backgroundColor = [UIColor colorWithRed:0.68 green:0.70 blue:0.75 alpha:1.0];
     
     // 添加阴影效果
     button.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -579,15 +582,15 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         button.layer.shadowOpacity = 0.3;
         button.layer.shadowRadius = 2.0;
     } else if ([keyText isEqualToString:@"符"] || [keyText isEqualToString:@"123"] || [keyText isEqualToString:@"ABC"] || [keyText isEqualToString:@"#+="]) {
-        // 功能键使用浅灰色背景
-        button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+        // 功能键背景色
+        button.backgroundColor = [UIColor colorWithRed:0.68 green:0.70 blue:0.75 alpha:1.0];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else if ([keyText isEqualToString:@"空格"]) {
         button.backgroundColor = [UIColor whiteColor];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else if ([keyText containsString:@"⌫"]) {
-        // 退格键使用浅灰色背景
-        button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+        // 退格键背景色
+        button.backgroundColor = [UIColor colorWithRed:0.68 green:0.70 blue:0.75 alpha:1.0];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else {
         // 字母键和符号键使用白色背景
