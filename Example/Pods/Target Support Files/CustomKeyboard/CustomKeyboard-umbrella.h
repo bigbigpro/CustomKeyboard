@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "CustomKeyboardView.h"
 #import "CustomKeyboardViewController.h"
 
 FOUNDATION_EXPORT double CustomKeyboardVersionNumber;

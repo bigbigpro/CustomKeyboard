@@ -7,36 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		016E89BA62F964CE2F620CA556CFDA1F /* CustomKeyboard-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E4C2F9E696B1BF8C3438A0549C23CB /* CustomKeyboard-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		16F010EF7D9B74F4B6CBD33FD757AEF6 /* Pods-CustomKeyboard_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DBB2B90E9A51032F5FB09C13A3546B /* Pods-CustomKeyboard_Example-dummy.m */; };
+		1DC376CA4141258D740A0CA199BF00A9 /* CustomKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46844FD441F47B28DBDF192895952271 /* CustomKeyboardViewController.m */; };
+		29FA96C87CBC3D2E0BC9413864D0D023 /* CustomKeyboard-CustomKeyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351C8F37A334C0DEE6219CFE8B6439A5 /* CustomKeyboard-CustomKeyboard */; };
 		2CB2ABC0701F6DB4B06A8B083CE631A4 /* Pods-CustomKeyboard_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CEEAE5DFB572251F9A95BA76DA4151F1 /* Pods-CustomKeyboard_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		31FD7B2CFEC1B62D03C61B5A810A6565 /* CustomKeyboard-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 253218B33574DBEF01E7B9DFDC6B92EC /* CustomKeyboard-dummy.m */; };
 		407E325257043F33CD0ECA9740EDBB0A /* Pods-CustomKeyboard_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6903E83E05EF24E43C0D9902AB79E41E /* Pods-CustomKeyboard_Tests-dummy.m */; };
+		49A7DFA7FA176C1CDE538BF276ABD8A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		6DB18ED4D87DBFE572B3005105BC556E /* CustomKeyboardView.h in Headers */ = {isa = PBXBuildFile; fileRef = B98D6462F3D5EDF53929D49BBB0CFF4C /* CustomKeyboardView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		730AD8CD588D76E3C9DC4FE3508B4D9B /* Pods-CustomKeyboard_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DCF2995CE344EEE277E1FF160C32FF7 /* Pods-CustomKeyboard_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		846F6CC6C9451218D94C8EF98EC27F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
 		93DE3AE1AE3DABB6B0CBB096CE04BAE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		9AE7A3C55FB507E1020A0BDD8B34C3C1 /* CustomKeyboard-CustomKeyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351C8F37A334C0DEE6219CFE8B6439A5 /* CustomKeyboard-CustomKeyboard */; };
-		A758BFAC5E0B35EE4C6303AA4A7CA1BB /* CustomKeyboardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DBDBC7416D090160ADFD37C1A287B54E /* CustomKeyboardViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D278077F3C0C7754E2EA0653A33398E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		F3556461684B43054C836E3C44AF1384 /* CustomKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA54F92D5BBD974BDEA2EF3E80236548 /* CustomKeyboardViewController.m */; };
+		B7552A6C482094B38C5FF3FC213B09D4 /* CustomKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495F2B6CC36924D3CD95F593420EA215 /* CustomKeyboardView.m */; };
+		C680E4E7CAF6537BE383B3A7A6DD35F9 /* CustomKeyboard-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FD2C697512AF16DDBD738D4B4EF5D26A /* CustomKeyboard-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5748B3F368F3C933EF3495A991C3042 /* CustomKeyboardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C958F573EF58E159AD781500D67913B /* CustomKeyboardViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC5F113696BF1AEE3A18E5908B84B043 /* CustomKeyboard-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5BFCA40818183378368294FAAC530C /* CustomKeyboard-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		252CDE499421B6610D9A1F0D2DAEBE36 /* PBXContainerItemProxy */ = {
+		1C8E028E8E11E73011BF80B3EE4E95D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8ACD0167F3A56C604A249D2DFC71B1C9;
 			remoteInfo = "CustomKeyboard-CustomKeyboard";
 		};
-		9AF04E6F3BA526F4ABEE634EF042D11A /* PBXContainerItemProxy */ = {
+		510E8234D16D269043694CB62FC345D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 157A99885AE80FCF349D4C21F291183D;
 			remoteInfo = "Pods-CustomKeyboard_Example";
 		};
-		A4FE9845B7B6DE91D57B33FFA51538E9 /* PBXContainerItemProxy */ = {
+		8DE22329C6B5EC6B4573FC12659CD7F7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -46,42 +48,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C6432617EF037D40C67B9AD023547B0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		0378B2B0E9049812A666143131628A84 /* CustomKeyboard.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CustomKeyboard.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		06CC181E875DBCA806CEAB35339FDB1E /* CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CustomKeyboard.debug.xcconfig; sourceTree = "<group>"; };
+		07712AE9778E9E377072BC5CFF98F570 /* CustomKeyboard-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CustomKeyboard-Info.plist"; sourceTree = "<group>"; };
 		0C8885AC8A68EB7346FB629341A377A8 /* Pods-CustomKeyboard_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CustomKeyboard_Tests.modulemap"; sourceTree = "<group>"; };
-		13E4C2F9E696B1BF8C3438A0549C23CB /* CustomKeyboard-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CustomKeyboard-umbrella.h"; sourceTree = "<group>"; };
+		0CE5A634DEF6C7522C3E2EEB9F003BCB /* CustomKeyboard.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CustomKeyboard.modulemap; sourceTree = "<group>"; };
+		13579DE51711056F78259AF507398DBB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		19DBB2B90E9A51032F5FB09C13A3546B /* Pods-CustomKeyboard_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CustomKeyboard_Example-dummy.m"; sourceTree = "<group>"; };
-		253218B33574DBEF01E7B9DFDC6B92EC /* CustomKeyboard-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CustomKeyboard-dummy.m"; sourceTree = "<group>"; };
+		26D1B99EFEDC34611C3348CD6BF1E84B /* ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist"; sourceTree = "<group>"; };
 		2988001C404AE5029982515042F4733C /* Pods-CustomKeyboard_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CustomKeyboard_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		351C8F37A334C0DEE6219CFE8B6439A5 /* CustomKeyboard-CustomKeyboard */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "CustomKeyboard-CustomKeyboard"; path = CustomKeyboard.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3D3C5E9615D6484DD00B0582EA586F3E /* Pods-CustomKeyboard_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CustomKeyboard_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3F6BEBAA41A07D75B4862BC2F9B021BE /* Pods-CustomKeyboard_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CustomKeyboard_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		46844FD441F47B28DBDF192895952271 /* CustomKeyboardViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CustomKeyboardViewController.m; path = CustomKeyboard/Classes/CustomKeyboardViewController.m; sourceTree = "<group>"; };
 		46B532144B30D3EF4E9D35C0D5CEA368 /* Pods-CustomKeyboard_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CustomKeyboard_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		475EB835270F9C92FFD4A5D91ED262F3 /* CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CustomKeyboard.debug.xcconfig; sourceTree = "<group>"; };
+		495F2B6CC36924D3CD95F593420EA215 /* CustomKeyboardView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CustomKeyboardView.m; path = CustomKeyboard/Classes/CustomKeyboardView.m; sourceTree = "<group>"; };
 		4DCF2995CE344EEE277E1FF160C32FF7 /* Pods-CustomKeyboard_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CustomKeyboard_Tests-umbrella.h"; sourceTree = "<group>"; };
 		5FF59F303498582808F92A59A18FA9B0 /* CustomKeyboard */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CustomKeyboard; path = CustomKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		607702197569BAC7E9C424C3AD359336 /* CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CustomKeyboard.release.xcconfig; sourceTree = "<group>"; };
 		6903E83E05EF24E43C0D9902AB79E41E /* Pods-CustomKeyboard_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CustomKeyboard_Tests-dummy.m"; sourceTree = "<group>"; };
 		6AA98C5E0381A18F0323F40D5F8E0086 /* Pods-CustomKeyboard_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CustomKeyboard_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6D1348AB0AA1D3D752907A949983954D /* Pods-CustomKeyboard_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-CustomKeyboard_Tests"; path = Pods_CustomKeyboard_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		72B362C3E56E26EDD311444BBB2E67E1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		751099F5DA6819AD09305CA48BB71461 /* Pods-CustomKeyboard_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CustomKeyboard_Tests-Info.plist"; sourceTree = "<group>"; };
-		78E5057841DF972F3140FD7B7482E589 /* CustomKeyboard.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CustomKeyboard.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7B5BFCA40818183378368294FAAC530C /* CustomKeyboard-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CustomKeyboard-dummy.m"; sourceTree = "<group>"; };
+		8C958F573EF58E159AD781500D67913B /* CustomKeyboardViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardViewController.h; path = CustomKeyboard/Classes/CustomKeyboardViewController.h; sourceTree = "<group>"; };
+		928958948DB5B152902CDF71AD974E88 /* CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CustomKeyboard.release.xcconfig; sourceTree = "<group>"; };
 		9897547FD92A74030AA3FC9549FFE0CF /* Pods-CustomKeyboard_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CustomKeyboard_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A3E1AA39CEC1EF0D58D6D65DEEC9430C /* Pods-CustomKeyboard_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CustomKeyboard_Example.modulemap"; sourceTree = "<group>"; };
-		A8F1244D6B6501963F40A7336DAC54EA /* CustomKeyboard.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CustomKeyboard.modulemap; sourceTree = "<group>"; };
 		ACB82038A64F757FDDCC751C05AB46C3 /* Pods-CustomKeyboard_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CustomKeyboard_Example-Info.plist"; sourceTree = "<group>"; };
-		ACFF300E7D740659DA63D3471E75D497 /* CustomKeyboard-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CustomKeyboard-prefix.pch"; sourceTree = "<group>"; };
-		C033AEBE60CD8F630DE098663A5B6507 /* ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist"; sourceTree = "<group>"; };
+		B98D6462F3D5EDF53929D49BBB0CFF4C /* CustomKeyboardView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardView.h; path = CustomKeyboard/Classes/CustomKeyboardView.h; sourceTree = "<group>"; };
+		BE03FB5B2628D0B6DDF6FB9F5C92E89A /* CustomKeyboard-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CustomKeyboard-prefix.pch"; sourceTree = "<group>"; };
 		C399C76BD8E290730532520CC53966B2 /* Pods-CustomKeyboard_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CustomKeyboard_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C91F55A66A2A0FE156EB59B258F5B769 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		CEEAE5DFB572251F9A95BA76DA4151F1 /* Pods-CustomKeyboard_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CustomKeyboard_Example-umbrella.h"; sourceTree = "<group>"; };
 		D96849496C696F3B43AF66DD336C6570 /* Pods-CustomKeyboard_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CustomKeyboard_Example-frameworks.sh"; sourceTree = "<group>"; };
-		DBDBC7416D090160ADFD37C1A287B54E /* CustomKeyboardViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardViewController.h; path = CustomKeyboard/Classes/CustomKeyboardViewController.h; sourceTree = "<group>"; };
 		EFA164A4BBC460720B01DD00E99DDA8B /* Pods-CustomKeyboard_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-CustomKeyboard_Example"; path = Pods_CustomKeyboard_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0A227A2464490FC2B9D4A434DF5481A /* CustomKeyboard-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CustomKeyboard-Info.plist"; sourceTree = "<group>"; };
 		F6791F2A88FF0F88F29C54C36100848A /* Pods-CustomKeyboard_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CustomKeyboard_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		FA54F92D5BBD974BDEA2EF3E80236548 /* CustomKeyboardViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CustomKeyboardViewController.m; path = CustomKeyboard/Classes/CustomKeyboardViewController.m; sourceTree = "<group>"; };
+		FD2C697512AF16DDBD738D4B4EF5D26A /* CustomKeyboard-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CustomKeyboard-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +97,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		18386FBBC9DA4C3E4C824AA22CFFB562 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D278077F3C0C7754E2EA0653A33398E8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C5A72379E2A9C4866A9BE838B1F2C5C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -109,7 +105,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E3711D6B43FDEDC6E8259AF11132734F /* Frameworks */ = {
+		D9DD8D5D13E745564972FF7E4322CFBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A7DFA7FA176C1CDE538BF276ABD8A9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8AE4200DABB05A9201F35E98A6F0059 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -119,6 +123,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		006A2032E1C0A12BCB4628AAFA09E7AE /* CustomKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B98D6462F3D5EDF53929D49BBB0CFF4C /* CustomKeyboardView.h */,
+				495F2B6CC36924D3CD95F593420EA215 /* CustomKeyboardView.m */,
+				8C958F573EF58E159AD781500D67913B /* CustomKeyboardViewController.h */,
+				46844FD441F47B28DBDF192895952271 /* CustomKeyboardViewController.m */,
+				47DD8D54D76E0D68F8530BA77BF2D5D7 /* Pod */,
+				4E79B0C64E80E7B62B38AAC56AEF279F /* Support Files */,
+			);
+			name = CustomKeyboard;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		0ED81AC077E4EC066E68530FB58CD4A9 /* Pods-CustomKeyboard_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,38 +170,38 @@
 			path = "Target Support Files/Pods-CustomKeyboard_Tests";
 			sourceTree = "<group>";
 		};
-		4A7EEA074A3489DAF34289B0A28575E3 /* Development Pods */ = {
+		47DD8D54D76E0D68F8530BA77BF2D5D7 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				CF6FDF20AF93EEFEF63FEB7C861716C1 /* CustomKeyboard */,
+				0378B2B0E9049812A666143131628A84 /* CustomKeyboard.podspec */,
+				C91F55A66A2A0FE156EB59B258F5B769 /* LICENSE */,
+				13579DE51711056F78259AF507398DBB /* README.md */,
 			);
-			name = "Development Pods";
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		7A695400EBA36A2974A6620644B7A813 /* Support Files */ = {
+		4E79B0C64E80E7B62B38AAC56AEF279F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A8F1244D6B6501963F40A7336DAC54EA /* CustomKeyboard.modulemap */,
-				253218B33574DBEF01E7B9DFDC6B92EC /* CustomKeyboard-dummy.m */,
-				F0A227A2464490FC2B9D4A434DF5481A /* CustomKeyboard-Info.plist */,
-				ACFF300E7D740659DA63D3471E75D497 /* CustomKeyboard-prefix.pch */,
-				13E4C2F9E696B1BF8C3438A0549C23CB /* CustomKeyboard-umbrella.h */,
-				475EB835270F9C92FFD4A5D91ED262F3 /* CustomKeyboard.debug.xcconfig */,
-				607702197569BAC7E9C424C3AD359336 /* CustomKeyboard.release.xcconfig */,
-				C033AEBE60CD8F630DE098663A5B6507 /* ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist */,
+				0CE5A634DEF6C7522C3E2EEB9F003BCB /* CustomKeyboard.modulemap */,
+				7B5BFCA40818183378368294FAAC530C /* CustomKeyboard-dummy.m */,
+				07712AE9778E9E377072BC5CFF98F570 /* CustomKeyboard-Info.plist */,
+				BE03FB5B2628D0B6DDF6FB9F5C92E89A /* CustomKeyboard-prefix.pch */,
+				FD2C697512AF16DDBD738D4B4EF5D26A /* CustomKeyboard-umbrella.h */,
+				06CC181E875DBCA806CEAB35339FDB1E /* CustomKeyboard.debug.xcconfig */,
+				928958948DB5B152902CDF71AD974E88 /* CustomKeyboard.release.xcconfig */,
+				26D1B99EFEDC34611C3348CD6BF1E84B /* ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/CustomKeyboard";
 			sourceTree = "<group>";
 		};
-		83209694AD9429616560F58B2813870F /* Pod */ = {
+		7BD733393238E25A58C3C7EADF43FC69 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				78E5057841DF972F3140FD7B7482E589 /* CustomKeyboard.podspec */,
-				72B362C3E56E26EDD311444BBB2E67E1 /* LICENSE */,
-				0C6432617EF037D40C67B9AD023547B0 /* README.md */,
+				006A2032E1C0A12BCB4628AAFA09E7AE /* CustomKeyboard */,
 			);
-			name = Pod;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		84148066E13B4F54FC031A887B8725F3 /* Products */ = {
@@ -210,23 +228,11 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				4A7EEA074A3489DAF34289B0A28575E3 /* Development Pods */,
+				7BD733393238E25A58C3C7EADF43FC69 /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				84148066E13B4F54FC031A887B8725F3 /* Products */,
 				C01ABA0939E9EFA63F2FD160D847DF3B /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		CF6FDF20AF93EEFEF63FEB7C861716C1 /* CustomKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				DBDBC7416D090160ADFD37C1A287B54E /* CustomKeyboardViewController.h */,
-				FA54F92D5BBD974BDEA2EF3E80236548 /* CustomKeyboardViewController.m */,
-				83209694AD9429616560F58B2813870F /* Pod */,
-				7A695400EBA36A2974A6620644B7A813 /* Support Files */,
-			);
-			name = CustomKeyboard;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
@@ -248,12 +254,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1BE2BC36D96C9DD76AC9E515C7D8D903 /* Headers */ = {
+		303612FB146EF8261CA6E18244C160C8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				016E89BA62F964CE2F620CA556CFDA1F /* CustomKeyboard-umbrella.h in Headers */,
-				A758BFAC5E0B35EE4C6303AA4A7CA1BB /* CustomKeyboardViewController.h in Headers */,
+				C680E4E7CAF6537BE383B3A7A6DD35F9 /* CustomKeyboard-umbrella.h in Headers */,
+				6DB18ED4D87DBFE572B3005105BC556E /* CustomKeyboardView.h in Headers */,
+				E5748B3F368F3C933EF3495A991C3042 /* CustomKeyboardViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +295,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				EA8E1CCB96DA60433B1F2BF3D26F4F49 /* PBXTargetDependency */,
+				827BDAC7940099118215393F6E5A5F4F /* PBXTargetDependency */,
 			);
 			name = "Pods-CustomKeyboard_Example";
 			productName = Pods_CustomKeyboard_Example;
@@ -297,17 +304,17 @@
 		};
 		1F053BDC277E5B61D7C53F8EB24A682C /* CustomKeyboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B5F29C276DC2D436FB8379814A4BF6CC /* Build configuration list for PBXNativeTarget "CustomKeyboard" */;
+			buildConfigurationList = 1F7B0F2F8289C6E5D3AE67BEC406D8AA /* Build configuration list for PBXNativeTarget "CustomKeyboard" */;
 			buildPhases = (
-				1BE2BC36D96C9DD76AC9E515C7D8D903 /* Headers */,
-				CFCC3BC5CBC12EE9DB850CB4DC0B5CEB /* Sources */,
-				18386FBBC9DA4C3E4C824AA22CFFB562 /* Frameworks */,
-				13BE396F755BC57E4B345D2F7D97DD19 /* Resources */,
+				303612FB146EF8261CA6E18244C160C8 /* Headers */,
+				335ED478D3AAF8C87326DB8C881B0948 /* Sources */,
+				D9DD8D5D13E745564972FF7E4322CFBF /* Frameworks */,
+				321FCA8DE1B19042BA35EC073467611F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F57C1AC70C1DF43FF695B8F25B56708B /* PBXTargetDependency */,
+				776D8C1DC418B5E8B61B43D5288FC0FD /* PBXTargetDependency */,
 			);
 			name = CustomKeyboard;
 			productName = CustomKeyboard;
@@ -316,11 +323,11 @@
 		};
 		8ACD0167F3A56C604A249D2DFC71B1C9 /* CustomKeyboard-CustomKeyboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB84C31F464D5C80F482613F3EB76396 /* Build configuration list for PBXNativeTarget "CustomKeyboard-CustomKeyboard" */;
+			buildConfigurationList = 325D5C2B8F696087B6F9713E19B37878 /* Build configuration list for PBXNativeTarget "CustomKeyboard-CustomKeyboard" */;
 			buildPhases = (
-				92D7C9431D1B6276C5FB8014629BBC27 /* Sources */,
-				E3711D6B43FDEDC6E8259AF11132734F /* Frameworks */,
-				F5E7DA83EA81AF258F6AE9E5F0C480BB /* Resources */,
+				FADC37D64CB1F345F3895E868A446D79 /* Sources */,
+				E8AE4200DABB05A9201F35E98A6F0059 /* Frameworks */,
+				02CD0831B87C7FDDFB8B0D6AA8B46B6A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -343,7 +350,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				991A918BDBD626F61B850EDB100F78BE /* PBXTargetDependency */,
+				ED44E6C248EFA4F178733CF8FE882649 /* PBXTargetDependency */,
 			);
 			name = "Pods-CustomKeyboard_Tests";
 			productName = Pods_CustomKeyboard_Tests;
@@ -383,11 +390,18 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		13BE396F755BC57E4B345D2F7D97DD19 /* Resources */ = {
+		02CD0831B87C7FDDFB8B0D6AA8B46B6A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AE7A3C55FB507E1020A0BDD8B34C3C1 /* CustomKeyboard-CustomKeyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		321FCA8DE1B19042BA35EC073467611F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29FA96C87CBC3D2E0BC9413864D0D023 /* CustomKeyboard-CustomKeyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,16 +419,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F5E7DA83EA81AF258F6AE9E5F0C480BB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		335ED478D3AAF8C87326DB8C881B0948 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC5F113696BF1AEE3A18E5908B84B043 /* CustomKeyboard-dummy.m in Sources */,
+				B7552A6C482094B38C5FF3FC213B09D4 /* CustomKeyboardView.m in Sources */,
+				1DC376CA4141258D740A0CA199BF00A9 /* CustomKeyboardViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3D4F66871005D9264152AF54710B9806 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,42 +448,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		92D7C9431D1B6276C5FB8014629BBC27 /* Sources */ = {
+		FADC37D64CB1F345F3895E868A446D79 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CFCC3BC5CBC12EE9DB850CB4DC0B5CEB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31FD7B2CFEC1B62D03C61B5A810A6565 /* CustomKeyboard-dummy.m in Sources */,
-				F3556461684B43054C836E3C44AF1384 /* CustomKeyboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		991A918BDBD626F61B850EDB100F78BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-CustomKeyboard_Example";
-			target = 157A99885AE80FCF349D4C21F291183D /* Pods-CustomKeyboard_Example */;
-			targetProxy = 9AF04E6F3BA526F4ABEE634EF042D11A /* PBXContainerItemProxy */;
-		};
-		EA8E1CCB96DA60433B1F2BF3D26F4F49 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CustomKeyboard;
-			target = 1F053BDC277E5B61D7C53F8EB24A682C /* CustomKeyboard */;
-			targetProxy = A4FE9845B7B6DE91D57B33FFA51538E9 /* PBXContainerItemProxy */;
-		};
-		F57C1AC70C1DF43FF695B8F25B56708B /* PBXTargetDependency */ = {
+		776D8C1DC418B5E8B61B43D5288FC0FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CustomKeyboard-CustomKeyboard";
 			target = 8ACD0167F3A56C604A249D2DFC71B1C9 /* CustomKeyboard-CustomKeyboard */;
-			targetProxy = 252CDE499421B6610D9A1F0D2DAEBE36 /* PBXContainerItemProxy */;
+			targetProxy = 1C8E028E8E11E73011BF80B3EE4E95D6 /* PBXContainerItemProxy */;
+		};
+		827BDAC7940099118215393F6E5A5F4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CustomKeyboard;
+			target = 1F053BDC277E5B61D7C53F8EB24A682C /* CustomKeyboard */;
+			targetProxy = 8DE22329C6B5EC6B4573FC12659CD7F7 /* PBXContainerItemProxy */;
+		};
+		ED44E6C248EFA4F178733CF8FE882649 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CustomKeyboard_Example";
+			target = 157A99885AE80FCF349D4C21F291183D /* Pods-CustomKeyboard_Example */;
+			targetProxy = 510E8234D16D269043694CB62FC345D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -542,9 +550,9 @@
 			};
 			name = Release;
 		};
-		27C5D72F909CAE2D6EF9C3755CA9ADBD /* Release */ = {
+		4B2497B65B2FC5BCF711A61A920DC7C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 607702197569BAC7E9C424C3AD359336 /* CustomKeyboard.release.xcconfig */;
+			baseConfigurationReference = 928958948DB5B152902CDF71AD974E88 /* CustomKeyboard.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -577,23 +585,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		307966FE6F7358DBCCE2CC268314ECF0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475EB835270F9C92FFD4A5D91ED262F3 /* CustomKeyboard.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CustomKeyboard";
-				IBSC_MODULE = CustomKeyboard;
-				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = CustomKeyboard;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
 		};
 		68855EEC6CBE80056DCA505C94C2E819 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -692,38 +683,37 @@
 			};
 			name = Release;
 		};
-		93241BF03E69D06B19F9FF8821C75C21 /* Debug */ = {
+		B5E23815E0F247A697FDB2797DF79E3E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475EB835270F9C92FFD4A5D91ED262F3 /* CustomKeyboard.debug.xcconfig */;
+			baseConfigurationReference = 928958948DB5B152902CDF71AD974E88 /* CustomKeyboard.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/CustomKeyboard/CustomKeyboard-prefix.pch";
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/CustomKeyboard-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CustomKeyboard";
+				IBSC_MODULE = CustomKeyboard;
+				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CustomKeyboard/CustomKeyboard.modulemap";
-				PRODUCT_MODULE_NAME = CustomKeyboard;
 				PRODUCT_NAME = CustomKeyboard;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		C6196B8697435F91143EDB4D676E0AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06CC181E875DBCA806CEAB35339FDB1E /* CustomKeyboard.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CustomKeyboard";
+				IBSC_MODULE = CustomKeyboard;
+				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_NAME = CustomKeyboard;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -829,31 +819,67 @@
 			};
 			name = Debug;
 		};
-		F65825EEF2B942FE7D948D240E8558AC /* Release */ = {
+		D8755EDECB08131A4C80FEC93DEBD70C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 607702197569BAC7E9C424C3AD359336 /* CustomKeyboard.release.xcconfig */;
+			baseConfigurationReference = 06CC181E875DBCA806CEAB35339FDB1E /* CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CustomKeyboard";
-				IBSC_MODULE = CustomKeyboard;
-				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/ResourceBundle-CustomKeyboard-CustomKeyboard-Info.plist";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/CustomKeyboard/CustomKeyboard-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/CustomKeyboard/CustomKeyboard-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CustomKeyboard/CustomKeyboard.modulemap";
+				PRODUCT_MODULE_NAME = CustomKeyboard;
 				PRODUCT_NAME = CustomKeyboard;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F7B0F2F8289C6E5D3AE67BEC406D8AA /* Build configuration list for PBXNativeTarget "CustomKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8755EDECB08131A4C80FEC93DEBD70C /* Debug */,
+				4B2497B65B2FC5BCF711A61A920DC7C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		288C30ADE21BC7C1319BF164839B6EFD /* Build configuration list for PBXNativeTarget "Pods-CustomKeyboard_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68855EEC6CBE80056DCA505C94C2E819 /* Debug */,
 				CC7B3944EB672F0E585570D530D81DF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		325D5C2B8F696087B6F9713E19B37878 /* Build configuration list for PBXNativeTarget "CustomKeyboard-CustomKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6196B8697435F91143EDB4D676E0AC3 /* Debug */,
+				B5E23815E0F247A697FDB2797DF79E3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -867,29 +893,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B5F29C276DC2D436FB8379814A4BF6CC /* Build configuration list for PBXNativeTarget "CustomKeyboard" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				93241BF03E69D06B19F9FF8821C75C21 /* Debug */,
-				27C5D72F909CAE2D6EF9C3755CA9ADBD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		D467E51D1C9E00E0B067D79D4E6E73C7 /* Build configuration list for PBXNativeTarget "Pods-CustomKeyboard_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00BACC82BE179892B99F76F689019D6B /* Debug */,
 				102E7BDF2759BC77A87E07A6F8ED48B2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DB84C31F464D5C80F482613F3EB76396 /* Build configuration list for PBXNativeTarget "CustomKeyboard-CustomKeyboard" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				307966FE6F7358DBCCE2CC268314ECF0 /* Debug */,
-				F65825EEF2B942FE7D948D240E8558AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

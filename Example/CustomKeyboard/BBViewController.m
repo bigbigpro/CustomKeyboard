@@ -59,12 +59,18 @@
 }
 
 - (void)setupCustomKeyboard {
-    // 创建自定义键盘
-    self.customKeyboard = [[CustomKeyboardViewController alloc] initWithTitle:@"安全键盘"];
-    self.customKeyboard.delegate = self;
+    // 使用单例自定义键盘
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    customKeyboard.delegate = self;
+    
+    // 确保键盘有正确的高度
+    CGFloat keyboardHeight = 300;
+    customKeyboard.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardHeight);
     
     // 设置文本框的输入视图为自定义键盘
-    self.textField.inputView = self.customKeyboard.view;
+    self.textField.inputView = customKeyboard;
+    
+    NSLog(@"自定义键盘已设置，高度: %.0f", keyboardHeight);
 }
 
 #pragma mark - CustomKeyboardDelegate
@@ -97,6 +103,19 @@
 
 - (void)customKeyboardDidToggleCapsLock {
     NSLog(@"大小写切换");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // 验证键盘是否正确设置
+    if (self.textField.inputView) {
+        NSLog(@"键盘已正确设置为自定义键盘");
+        NSLog(@"键盘类型: %@", [self.textField.inputView class]);
+        NSLog(@"键盘frame: %@", NSStringFromCGRect(self.textField.inputView.frame));
+    } else {
+        NSLog(@"警告：键盘未正确设置");
+    }
 }
 
 - (void)didReceiveMemoryWarning
