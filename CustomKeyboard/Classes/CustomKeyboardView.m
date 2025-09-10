@@ -208,10 +208,19 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         return [self createNumberKeyboardFourthRow:keys];
     }
     
-    // 计算按键宽度
-    CGFloat totalSpacing = (keys.count - 1) * 6; // 按键间距
-    CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing; // 减去左右边距和间距
-    CGFloat keyWidth = availableWidth / keys.count;
+    // 计算按键宽度 - 字母键盘第二行与第一行保持一致
+    CGFloat keyWidth;
+    if (self.currentKeyboardType == KeyboardTypeLetters && rowIndex == 1) {
+        // 第二行使用第一行的宽度（10个字母的宽度）
+        CGFloat firstRowSpacing = 9 * 6; // 第一行10个字母，9个间距
+        CGFloat firstRowAvailableWidth = [UIScreen mainScreen].bounds.size.width - 16 - firstRowSpacing;
+        keyWidth = firstRowAvailableWidth / 10; // 使用第一行的宽度
+    } else {
+        // 其他情况按原逻辑计算
+        CGFloat totalSpacing = (keys.count - 1) * 6; // 按键间距
+        CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing; // 减去左右边距和间距
+        keyWidth = availableWidth / keys.count;
+    }
     
     UIView *previousKey = nil;
     for (NSInteger keyIndex = 0; keyIndex < keys.count; keyIndex++) {
@@ -229,7 +238,16 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         if (previousKey) {
             [keyButton.leadingAnchor constraintEqualToAnchor:previousKey.trailingAnchor constant:6].active = YES;
         } else {
-            [keyButton.leadingAnchor constraintEqualToAnchor:rowView.leadingAnchor].active = YES;
+            // 字母键盘第二行需要居中显示
+            if (self.currentKeyboardType == KeyboardTypeLetters && rowIndex == 1) {
+                // 计算居中偏移量：第一行总宽度 - 第二行总宽度，然后除以2
+                CGFloat firstRowTotalWidth = keyWidth * 10 + 9 * 6; // 第一行总宽度
+                CGFloat secondRowTotalWidth = keyWidth * 9 + 8 * 6; // 第二行总宽度
+                CGFloat centerOffset = (firstRowTotalWidth - secondRowTotalWidth) / 2;
+                [keyButton.leadingAnchor constraintEqualToAnchor:rowView.leadingAnchor constant:centerOffset].active = YES;
+            } else {
+                [keyButton.leadingAnchor constraintEqualToAnchor:rowView.leadingAnchor].active = YES;
+            }
         }
         
         previousKey = keyButton;
