@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'CustomKeyboard_Example' do
+  pod 'CustomKeyboard', :path => '../'
+
+  target 'CustomKeyboard_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
