@@ -449,21 +449,6 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     return button;
 }
 
-- (void)updateCapsLockButtonAppearance {
-    if (!self.capsLockButton) {
-        NSLog(@"❌ capsLockButton 为空，无法更新外观");
-        return;
-    }
-    
-    NSLog(@"🔄 更新大小写按钮外观，当前状态: %ld", (long)self.capsLockState);
-    
-    // 根据当前大小写状态设置图标
-    BOOL isUppercase = (self.capsLockState != CapsLockStateOff);
-    UIImage *buttonImage = [self createCapsLockImage:isUppercase];
-    [self.capsLockButton setImage:buttonImage forState:UIControlStateNormal];
-    
-    NSLog(@"✅ 按钮图片已更新，图片尺寸: %@", NSStringFromCGSize(buttonImage.size));
-}
 
 - (UIImage *)createCapsLockImage:(BOOL)isUppercase {
     NSString *imageName = isUppercase ? @"uppercase_icon.png" : @"lowercase_icon.png";
@@ -729,8 +714,6 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
             break;
     }
     
-    // 更新大小写切换按钮外观
-    [self updateCapsLockButtonAppearance];
     
     // 重新创建键盘以更新字母显示
     if (self.currentKeyboardType == KeyboardTypeLetters) {
