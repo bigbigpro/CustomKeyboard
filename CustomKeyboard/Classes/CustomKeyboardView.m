@@ -488,13 +488,13 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         NSLog(@"❌ 找不到 CustomKeyboard bundle");
     }
     
-    // 如果找不到图片，使用绘制的图标
+    // 如果找不到图片，返回nil
     if (!originalImage) {
-        NSLog(@"🎨 使用绘制的图标作为备选");
-        originalImage = [self drawCapsLockIcon:isUppercase];
+        NSLog(@"❌ 未找到图片资源");
+        return nil;
     }
     
-    // 统一调整图片大小为 24x24
+    // 统一调整图片大小为 32x32
     return [self resizeImage:originalImage toSize:CGSizeMake(32, 32)];
 }
 
@@ -509,47 +509,6 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     return resizedImage;
 }
 
-- (UIImage *)drawCapsLockIcon:(BOOL)isUppercase {
-    // 创建大小写切换图标
-    CGSize size = CGSizeMake(24, 24);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextSetLineWidth(context, 2.0);
-    
-    if (isUppercase) {
-        // 绘制大写图标 (A)
-        // 绘制 A 字母
-        CGContextMoveToPoint(context, 12, 4);   // 顶部中心
-        CGContextAddLineToPoint(context, 8, 20); // 左下
-        CGContextAddLineToPoint(context, 10, 20); // 左底
-        CGContextAddLineToPoint(context, 10, 14); // 左中
-        CGContextAddLineToPoint(context, 14, 14); // 右中
-        CGContextAddLineToPoint(context, 14, 20); // 右底
-        CGContextAddLineToPoint(context, 16, 20); // 右下
-        CGContextAddLineToPoint(context, 12, 4);  // 回顶部
-        
-        // 绘制横线
-        CGContextMoveToPoint(context, 10, 16);
-        CGContextAddLineToPoint(context, 14, 16);
-    } else {
-        // 绘制小写图标 (a)
-        // 绘制圆形
-        CGContextAddEllipseInRect(context, CGRectMake(8, 10, 8, 8));
-        // 绘制竖线
-        CGContextMoveToPoint(context, 12, 4);
-        CGContextAddLineToPoint(context, 12, 10);
-    }
-    
-    CGContextStrokePath(context);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
 
 - (UIButton *)createKeyButton:(NSString *)keyText {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -661,7 +620,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         CGFloat availableWidth = [UIScreen mainScreen].bounds.size.width - 16 - totalSpacing;
         
         CGFloat smallKeyWidth = 50; // ABC键的宽度
-        CGFloat doneKeyWidth = 80; // 完成键宽度（更宽）
+        CGFloat doneKeyWidth = 90; // 完成键宽度（更宽）
         CGFloat spaceKeyWidth = availableWidth - smallKeyWidth - doneKeyWidth; // 空格键宽度
         
         keyWidths = @[@(smallKeyWidth), @(spaceKeyWidth), @(doneKeyWidth)];
@@ -673,7 +632,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         
         // 计算按键宽度：符和123使用相同宽度，空格更宽，完成键更宽
         CGFloat smallKeyWidth = 50; // 符和123的宽度
-        CGFloat doneKeyWidth = 80; // 完成键宽度（更宽）
+        CGFloat doneKeyWidth = 90; // 完成键宽度（更宽）
         CGFloat spaceKeyWidth = availableWidth - smallKeyWidth * 2 - doneKeyWidth; // 空格键宽度
         
         keyWidths = @[@(smallKeyWidth), @(smallKeyWidth), @(spaceKeyWidth), @(doneKeyWidth)];
