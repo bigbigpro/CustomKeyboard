@@ -7,7 +7,11 @@
 //
 
 @import UIKit;
+#import "CustomKeyboardViewController.h"
 
-@interface BBViewController : UIViewController
+@interface BBViewController : UIViewController <CustomKeyboardDelegate>
+
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) CustomKeyboardViewController *customKeyboard;
 
 @end

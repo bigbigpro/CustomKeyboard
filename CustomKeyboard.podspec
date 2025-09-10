@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'CustomKeyboard'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of CustomKeyboard.'
+  s.summary          = 'A custom keyboard library for iOS with secure input support.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-自定义键盘
+CustomKeyboard 是一个功能强大的 iOS 自定义键盘库，提供安全输入支持。
+支持字母、数字、符号三种键盘模式，具有现代化的 UI 设计和流畅的用户体验。
                        DESC
 
   s.homepage         = 'https://github.com/bigbigpro/CustomKeyboard'
@@ -32,9 +33,9 @@ Pod::Spec.new do |s|
 
   s.source_files = 'CustomKeyboard/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'CustomKeyboard' => ['CustomKeyboard/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'CustomKeyboard' => ['CustomKeyboard/Assets/*.png']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

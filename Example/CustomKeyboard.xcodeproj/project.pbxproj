@@ -247,6 +247,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = ext.jiangxielin1;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = HD88HT3WN7;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -494,6 +497,7 @@
 			baseConfigurationReference = 69427132A6EE6907F73944A6 /* Pods-CustomKeyboard_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HD88HT3WN7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CustomKeyboard/CustomKeyboard-Prefix.pch";
 				INFOPLIST_FILE = "CustomKeyboard/CustomKeyboard-Info.plist";
@@ -510,6 +514,7 @@
 			baseConfigurationReference = 9A3FEDB3667CB7F0735FD22D /* Pods-CustomKeyboard_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HD88HT3WN7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CustomKeyboard/CustomKeyboard-Prefix.pch";
 				INFOPLIST_FILE = "CustomKeyboard/CustomKeyboard-Info.plist";
