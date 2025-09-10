@@ -156,7 +156,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         rowView.translatesAutoresizingMaskIntoConstraints = NO;
         
         // 根据键盘类型设置不同的行高度
-        CGFloat rowHeight = (self.currentKeyboardType == KeyboardTypeNumbers) ? 50 : 44;
+        CGFloat rowHeight = (self.currentKeyboardType == KeyboardTypeNumbers) ? 46 : 44;
         
         [NSLayoutConstraint activateConstraints:@[
             [rowView.leadingAnchor constraintEqualToAnchor:self.keyboardContainer.leadingAnchor constant:8],
@@ -178,6 +178,20 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     // 创建功能键行（数字键盘不需要）
     if (self.currentKeyboardType != KeyboardTypeNumbers) {
         [self createFunctionKeysRow:previousRow];
+    } else {
+        // 数字键盘添加底部留白
+        if (previousRow) {
+            UIView *bottomSpacer = [[UIView alloc] init];
+            bottomSpacer.backgroundColor = [UIColor clearColor];
+            [self.keyboardContainer addSubview:bottomSpacer];
+            bottomSpacer.translatesAutoresizingMaskIntoConstraints = NO;
+            [NSLayoutConstraint activateConstraints:@[
+                [bottomSpacer.topAnchor constraintEqualToAnchor:previousRow.bottomAnchor],
+                [bottomSpacer.leadingAnchor constraintEqualToAnchor:self.keyboardContainer.leadingAnchor],
+                [bottomSpacer.trailingAnchor constraintEqualToAnchor:self.keyboardContainer.trailingAnchor],
+                [bottomSpacer.heightAnchor constraintEqualToConstant:12]
+            ]];
+        }
     }
 }
 
@@ -524,7 +538,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         // 其他按键使用18px字体
         button.titleLabel.font = [UIFont systemFontOfSize:18];
     }
-    button.layer.cornerRadius = 8;
+    button.layer.cornerRadius = 6;
     button.layer.masksToBounds = NO; // 改为NO，允许阴影显示
     
     // 添加阴影效果
