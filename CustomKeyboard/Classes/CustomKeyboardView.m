@@ -86,6 +86,9 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 - (void)setupUI {
     self.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.97 alpha:1.0];
     
+    // 测试图片加载
+    [self testImageLoading];
+    
     // 设置键盘视图的高度
     CGFloat keyboardHeight = 300; // 设置一个固定的键盘高度
     self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardHeight);
@@ -111,6 +114,15 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     
     // 创建键盘
     [self createKeyboard];
+}
+
+- (void)testImageLoading {
+    // 简单测试图片加载
+    UIImage *uppercaseImage = [self createCapsLockImage:YES];
+    UIImage *lowercaseImage = [self createCapsLockImage:NO];
+    NSLog(@"图片加载测试 - 大写: %@, 小写: %@", 
+          uppercaseImage ? @"成功" : @"失败", 
+          lowercaseImage ? @"成功" : @"失败");
 }
 
 - (void)setupTitleLabel {
@@ -404,8 +416,6 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 - (UIButton *)createCapsLockButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.layer.cornerRadius = 8;
-    button.layer.masksToBounds = NO; // 允许阴影显示
-    // 使用浅灰色背景，匹配效果图
     button.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
     
     // 添加阴影效果
@@ -414,59 +424,120 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     button.layer.shadowOpacity = 0.2;
     button.layer.shadowRadius = 1.0;
     
-    // 设置大小写切换图标
-    [self updateCapsLockButtonAppearance];
+    // 设置图片内容模式
+    button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    button.imageView.clipsToBounds = YES;
+    
+    // 设置图片边距，确保图片大小一致
+    button.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     
     [button addTarget:self action:@selector(capsLockButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 添加按下效果
     [button addTarget:self action:@selector(keyButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
     [button addTarget:self action:@selector(keyButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
     
+    // 直接设置图片，不依赖 updateCapsLockButtonAppearance
+    BOOL isUppercase = (self.capsLockState != CapsLockStateOff);
+    UIImage *buttonImage = [self createCapsLockImage:isUppercase];
+    [button setImage:buttonImage forState:UIControlStateNormal];
+    
     return button;
 }
 
 - (void)updateCapsLockButtonAppearance {
-    if (!self.capsLockButton) return;
+    if (!self.capsLockButton) {
+        NSLog(@"❌ capsLockButton 为空，无法更新外观");
+        return;
+    }
+    
+    NSLog(@"🔄 更新大小写按钮外观，当前状态: %ld", (long)self.capsLockState);
     
     // 根据当前大小写状态设置图标
-    switch (self.capsLockState) {
-        case CapsLockStateOff:
-            // 显示小写图标
-            [self.capsLockButton setImage:[self createCapsLockImage:NO] forState:UIControlStateNormal];
-            break;
-        case CapsLockStateOn:
-            // 显示大写图标
-            [self.capsLockButton setImage:[self createCapsLockImage:YES] forState:UIControlStateNormal];
-            break;
-        case CapsLockStateCaps:
-            // 显示大写锁定图标
-            [self.capsLockButton setImage:[self createCapsLockImage:YES] forState:UIControlStateNormal];
-            break;
-    }
+    BOOL isUppercase = (self.capsLockState != CapsLockStateOff);
+    UIImage *buttonImage = [self createCapsLockImage:isUppercase];
+    [self.capsLockButton setImage:buttonImage forState:UIControlStateNormal];
+    
+    NSLog(@"✅ 按钮图片已更新，图片尺寸: %@", NSStringFromCGSize(buttonImage.size));
 }
 
 - (UIImage *)createCapsLockImage:(BOOL)isUppercase {
-    // 创建大小写切换图标 - 使用 ⇧ 符号
-    CGSize size = CGSizeMake(20, 20);
+    NSString *imageName = isUppercase ? @"uppercase_icon.png" : @"lowercase_icon.png";
+    
+    // 从 CustomKeyboard bundle 中加载图片
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *bundlePath = [bundle pathForResource:@"CustomKeyboard" ofType:@"bundle"];
+    
+    NSLog(@"🔍 尝试加载图片: %@", imageName);
+    NSLog(@"🔍 Bundle 路径: %@", bundlePath);
+    
+    UIImage *originalImage = nil;
+    if (bundlePath) {
+        NSBundle *resourceBundle = [NSBundle bundleWithPath:bundlePath];
+        originalImage = [UIImage imageNamed:imageName inBundle:resourceBundle compatibleWithTraitCollection:nil];
+        if (originalImage) {
+            NSLog(@"✅ 成功从 CustomKeyboard bundle 加载图片: %@, 原始尺寸: %@", imageName, NSStringFromCGSize(originalImage.size));
+        } else {
+            NSLog(@"❌ 无法从 CustomKeyboard bundle 加载图片: %@", imageName);
+        }
+    } else {
+        NSLog(@"❌ 找不到 CustomKeyboard bundle");
+    }
+    
+    // 如果找不到图片，使用绘制的图标
+    if (!originalImage) {
+        NSLog(@"🎨 使用绘制的图标作为备选");
+        originalImage = [self drawCapsLockIcon:isUppercase];
+    }
+    
+    // 统一调整图片大小为 24x24
+    return [self resizeImage:originalImage toSize:CGSizeMake(32, 32)];
+}
+
+- (UIImage *)resizeImage:(UIImage *)image toSize:(CGSize)size {
+    if (!image) return nil;
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
+}
+
+- (UIImage *)drawCapsLockIcon:(BOOL)isUppercase {
+    // 创建大小写切换图标
+    CGSize size = CGSizeMake(24, 24);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
     CGContextSetLineWidth(context, 2.0);
     
-    // 绘制 ⇧ 符号
-    // 绘制向上的箭头
-    CGContextMoveToPoint(context, 10, 16); // 底部中心
-    CGContextAddLineToPoint(context, 6, 8); // 左下
-    CGContextAddLineToPoint(context, 8, 8); // 左横
-    CGContextAddLineToPoint(context, 8, 4); // 左竖
-    CGContextAddLineToPoint(context, 12, 4); // 上横
-    CGContextAddLineToPoint(context, 12, 8); // 右竖
-    CGContextAddLineToPoint(context, 14, 8); // 右横
-    CGContextAddLineToPoint(context, 10, 16); // 回到底部中心
+    if (isUppercase) {
+        // 绘制大写图标 (A)
+        // 绘制 A 字母
+        CGContextMoveToPoint(context, 12, 4);   // 顶部中心
+        CGContextAddLineToPoint(context, 8, 20); // 左下
+        CGContextAddLineToPoint(context, 10, 20); // 左底
+        CGContextAddLineToPoint(context, 10, 14); // 左中
+        CGContextAddLineToPoint(context, 14, 14); // 右中
+        CGContextAddLineToPoint(context, 14, 20); // 右底
+        CGContextAddLineToPoint(context, 16, 20); // 右下
+        CGContextAddLineToPoint(context, 12, 4);  // 回顶部
+        
+        // 绘制横线
+        CGContextMoveToPoint(context, 10, 16);
+        CGContextAddLineToPoint(context, 14, 16);
+    } else {
+        // 绘制小写图标 (a)
+        // 绘制圆形
+        CGContextAddEllipseInRect(context, CGRectMake(8, 10, 8, 8));
+        // 绘制竖线
+        CGContextMoveToPoint(context, 12, 4);
+        CGContextAddLineToPoint(context, 12, 10);
+    }
     
     CGContextStrokePath(context);
     
