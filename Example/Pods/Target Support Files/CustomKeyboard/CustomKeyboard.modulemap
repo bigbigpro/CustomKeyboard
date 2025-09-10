@@ -1,0 +1,6 @@
+framework module CustomKeyboard {
+  umbrella header "CustomKeyboard-umbrella.h"
+
+  export *
+  module * { export * }
+}

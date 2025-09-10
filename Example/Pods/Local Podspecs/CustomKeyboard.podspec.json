@@ -1,0 +1,22 @@
+{
+  "name": "CustomKeyboard",
+  "version": "0.1.0",
+  "summary": "A short description of CustomKeyboard.",
+  "description": "自定义键盘",
+  "homepage": "https://github.com/bigbigpro/CustomKeyboard",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "bigbigpro": "bigbigpro@163.com"
+  },
+  "source": {
+    "git": "https://github.com/bigbigpro/CustomKeyboard.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "source_files": "CustomKeyboard/Classes/**/*"
+}

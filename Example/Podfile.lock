@@ -1,0 +1,16 @@
+PODS:
+  - CustomKeyboard (0.1.0)
+
+DEPENDENCIES:
+  - CustomKeyboard (from `../`)
+
+EXTERNAL SOURCES:
+  CustomKeyboard:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CustomKeyboard: 344332cd209ac8530a9d571819114bd4065b8fc0
+
+PODFILE CHECKSUM: f79ca0b855b81536ee2ff2681c31ccbfa4da31a4
+
+COCOAPODS: 1.16.2
