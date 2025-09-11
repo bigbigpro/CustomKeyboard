@@ -28,10 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<CustomKeyboardDelegate> delegate;
 @property (nonatomic, assign) BOOL showTitle; // 是否显示"安全键盘"标题
 @property (nonatomic, assign) BOOL hapticFeedbackEnabled; // 是否启用震动反馈
+@property (nonatomic, assign) BOOL randomKeysEnabled; // 是否启用随机按键
+@property (nonatomic, assign) NSInteger currentKeyboardType; // 当前键盘类型
 
 + (instancetype)sharedInstance;
 - (instancetype)initWithTitle:(NSString *)title;
 - (void)switchToKeyboardType:(NSInteger)keyboardType;
+- (void)regenerateRandomKeys; // 重新生成随机按键
 
 @end
 

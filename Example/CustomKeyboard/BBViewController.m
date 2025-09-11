@@ -43,7 +43,7 @@
     
     // 添加说明标签
     UILabel *instructionLabel = [[UILabel alloc] init];
-    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n点击文本框即可使用自定义键盘";
+    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n支持随机按键和震动反馈功能\n点击文本框即可使用自定义键盘";
     instructionLabel.numberOfLines = 0;
     instructionLabel.textAlignment = NSTextAlignmentCenter;
     instructionLabel.font = [UIFont systemFontOfSize:14];
@@ -79,6 +79,30 @@
     [NSLayoutConstraint activateConstraints:@[
         [hapticSwitch.topAnchor constraintEqualToAnchor:instructionLabel.bottomAnchor constant:30],
         [hapticSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
+    ]];
+    
+    // 添加随机按键开关
+    UISwitch *randomSwitch = [[UISwitch alloc] init];
+    randomSwitch.on = NO;
+    randomSwitch.translatesAutoresizingMaskIntoConstraints = NO;
+    [randomSwitch addTarget:self action:@selector(randomSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:randomSwitch];
+    
+    UILabel *randomLabel = [[UILabel alloc] init];
+    randomLabel.text = @"随机按键";
+    randomLabel.font = [UIFont systemFontOfSize:16];
+    randomLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:randomLabel];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [randomLabel.topAnchor constraintEqualToAnchor:hapticLabel.bottomAnchor constant:20],
+        [randomLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
+        [randomLabel.centerYAnchor constraintEqualToAnchor:randomSwitch.centerYAnchor]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [randomSwitch.topAnchor constraintEqualToAnchor:hapticLabel.bottomAnchor constant:20],
+        [randomSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
     ]];
 }
 
@@ -137,6 +161,16 @@
     customKeyboard.hapticFeedbackEnabled = sender.isOn;
     
     NSLog(@"震动反馈已%@", sender.isOn ? @"启用" : @"禁用");
+}
+
+- (void)randomSwitchChanged:(UISwitch *)sender {
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    customKeyboard.randomKeysEnabled = sender.isOn;
+    
+    NSLog(@"随机按键已%@", sender.isOn ? @"启用" : @"禁用");
+    
+    // 重新生成随机按键
+    [customKeyboard regenerateRandomKeys];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

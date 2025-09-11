@@ -23,13 +23,15 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *keyboardContainer;
-@property (nonatomic, assign) KeyboardType currentKeyboardType;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *letterKeys;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *numberKeys;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *symbolKeys;
 @property (nonatomic, assign) CapsLockState capsLockState;
 @property (nonatomic, strong) UIButton *capsLockButton;
 @property (nonatomic, strong) NSTimer *backspaceTimer;
+@property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledLetterKeys;
+@property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledNumberKeys;
+@property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledSymbolKeys;
 
 @end
 
@@ -50,6 +52,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         _showTitle = title.length > 0;
         // 默认启用震动反馈
         [self setHapticFeedbackEnabled:YES];
+        // 默认关闭随机按键
+        _randomKeysEnabled = NO;
         [self setupKeyboardData];
         [self setupUI];
     }
@@ -703,13 +707,44 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 }
 
 - (NSArray<NSArray<NSString *> *> *)getCurrentKeys {
-    switch (self.currentKeyboardType) {
-        case KeyboardTypeLetters:
-            return self.letterKeys;
-        case KeyboardTypeNumbers:
-            return self.numberKeys;
-        case KeyboardTypeSymbols:
-            return self.symbolKeys;
+    // 如果启用了随机按键，检查是否已经生成了随机按键
+    if (self.randomKeysEnabled) {
+        switch (self.currentKeyboardType) {
+            case KeyboardTypeLetters:
+                if (!self.shuffledLetterKeys) {
+                    self.shuffledLetterKeys = [self shuffleKeys:self.letterKeys];
+                }
+                return self.shuffledLetterKeys;
+            case KeyboardTypeNumbers:
+                if (!self.shuffledNumberKeys) {
+                    self.shuffledNumberKeys = [self shuffleKeys:self.numberKeys];
+                }
+                return self.shuffledNumberKeys;
+            case KeyboardTypeSymbols:
+                if (!self.shuffledSymbolKeys) {
+                    self.shuffledSymbolKeys = [self shuffleKeys:self.symbolKeys];
+                }
+                return self.shuffledSymbolKeys;
+            default:
+                return self.letterKeys;
+        }
+    } else {
+        // 如果未启用随机按键，清空缓存的随机按键
+        self.shuffledLetterKeys = nil;
+        self.shuffledNumberKeys = nil;
+        self.shuffledSymbolKeys = nil;
+        
+        // 返回原始按键
+        switch (self.currentKeyboardType) {
+            case KeyboardTypeLetters:
+                return self.letterKeys;
+            case KeyboardTypeNumbers:
+                return self.numberKeys;
+            case KeyboardTypeSymbols:
+                return self.symbolKeys;
+            default:
+                return self.letterKeys;
+        }
     }
 }
 
@@ -895,6 +930,40 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     }
     
     [feedbackGenerator impactOccurred];
+}
+
+#pragma mark - Random Keys Methods
+
+- (NSArray<NSArray<NSString *> *> *)shuffleKeys:(NSArray<NSArray<NSString *> *> *)originalKeys {
+    if (!self.randomKeysEnabled) {
+        return originalKeys;
+    }
+    
+    NSMutableArray<NSArray<NSString *> *> *shuffledKeys = [NSMutableArray array];
+    
+    for (NSArray<NSString *> *row in originalKeys) {
+        NSMutableArray<NSString *> *shuffledRow = [row mutableCopy];
+        
+        // 使用 Fisher-Yates 洗牌算法
+        for (NSInteger i = shuffledRow.count - 1; i > 0; i--) {
+            NSInteger j = arc4random_uniform((uint32_t)(i + 1));
+            [shuffledRow exchangeObjectAtIndex:i withObjectAtIndex:j];
+        }
+        
+        [shuffledKeys addObject:[shuffledRow copy]];
+    }
+    
+    return [shuffledKeys copy];
+}
+
+- (void)regenerateRandomKeys {
+    // 清空缓存的随机按键，强制重新生成
+    self.shuffledLetterKeys = nil;
+    self.shuffledNumberKeys = nil;
+    self.shuffledSymbolKeys = nil;
+    
+    // 重新创建键盘以应用新的随机设置
+    [self createKeyboard];
 }
 
 @end
