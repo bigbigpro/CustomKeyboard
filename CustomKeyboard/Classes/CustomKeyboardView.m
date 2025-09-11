@@ -911,20 +911,4 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     }
 }
 
-- (void)setHapticFeedbackEnabled:(BOOL)hapticFeedbackEnabled {
-    // 保存到用户偏好设置
-    [[NSUserDefaults standardUserDefaults] setBool:hapticFeedbackEnabled forKey:@"CustomKeyboardHapticFeedbackEnabled"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL)hapticFeedbackEnabled {
-    // 从用户偏好设置中读取
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"CustomKeyboardHapticFeedbackEnabled"] != nil) {
-        return [defaults boolForKey:@"CustomKeyboardHapticFeedbackEnabled"];
-    }
-    
-    return YES; // 默认启用
-}
-
 @end
