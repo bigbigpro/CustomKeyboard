@@ -907,7 +907,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"didMoveToSuperview: 检查键盘容器子视图数量: %lu", (unsigned long)self.keyboardContainer.subviews.count);
             if (self.keyboardContainer) {
-                NSLog(@"didMoveToSuperview: 重新创建键盘");
+                NSLog(@"didMoveToSuperview: 重新创建键盘，当前类型: %ld", (long)self.currentKeyboardType);
                 [self createKeyboard];
             }
         });

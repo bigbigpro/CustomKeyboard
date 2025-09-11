@@ -8,7 +8,9 @@
 
 #import "BBViewController.h"
 
-@interface BBViewController ()
+@interface BBViewController () <UITextFieldDelegate>
+
+@property (nonatomic, strong) UISegmentedControl *keyboardTypeControl;
 
 @end
 
@@ -30,6 +32,7 @@
     self.textField.placeholder = @"点击这里使用自定义键盘";
     self.textField.borderStyle = UITextBorderStyleRoundedRect;
     self.textField.font = [UIFont systemFontOfSize:16];
+    self.textField.delegate = self;
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.textField];
     
@@ -43,7 +46,7 @@
     
     // 添加说明标签
     UILabel *instructionLabel = [[UILabel alloc] init];
-    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n支持随机按键和震动反馈功能\n点击文本框即可使用自定义键盘";
+    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n支持随机按键、震动反馈和键盘类型切换\n点击文本框即可使用自定义键盘";
     instructionLabel.numberOfLines = 0;
     instructionLabel.textAlignment = NSTextAlignmentCenter;
     instructionLabel.font = [UIFont systemFontOfSize:14];
@@ -103,6 +106,31 @@
     [NSLayoutConstraint activateConstraints:@[
         [randomSwitch.topAnchor constraintEqualToAnchor:hapticLabel.bottomAnchor constant:20],
         [randomSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
+    ]];
+    
+    // 添加键盘类型选择器
+    UILabel *keyboardTypeLabel = [[UILabel alloc] init];
+    keyboardTypeLabel.text = @"键盘类型";
+    keyboardTypeLabel.font = [UIFont systemFontOfSize:16];
+    keyboardTypeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:keyboardTypeLabel];
+    
+    self.keyboardTypeControl = [[UISegmentedControl alloc] initWithItems:@[@"字母", @"数字", @"符号"]];
+    self.keyboardTypeControl.selectedSegmentIndex = 0;
+    self.keyboardTypeControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.keyboardTypeControl addTarget:self action:@selector(keyboardTypeChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.keyboardTypeControl];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [keyboardTypeLabel.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [keyboardTypeLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
+        [keyboardTypeLabel.centerYAnchor constraintEqualToAnchor:self.keyboardTypeControl.centerYAnchor]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.keyboardTypeControl.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [self.keyboardTypeControl.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20],
+        [self.keyboardTypeControl.leadingAnchor constraintEqualToAnchor:keyboardTypeLabel.trailingAnchor constant:20]
     ]];
 }
 
@@ -173,6 +201,49 @@
     
     // 重新生成随机按键
     [customKeyboard regenerateRandomKeys];
+}
+
+- (void)keyboardTypeChanged:(UISegmentedControl *)sender {
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    
+    switch (sender.selectedSegmentIndex) {
+        case 0: // 字母键盘
+            [customKeyboard switchToKeyboardType:0];
+            NSLog(@"切换到字母键盘");
+            break;
+        case 1: // 数字键盘
+            [customKeyboard switchToKeyboardType:1];
+            NSLog(@"切换到数字键盘");
+            break;
+        case 2: // 符号键盘
+            [customKeyboard switchToKeyboardType:2];
+            NSLog(@"切换到符号键盘");
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    // 键盘开始编辑时，根据当前选择的键盘类型设置键盘
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    
+    switch (self.keyboardTypeControl.selectedSegmentIndex) {
+        case 0: // 字母键盘
+            [customKeyboard switchToKeyboardType:0];
+            NSLog(@"键盘显示，设置为字母键盘");
+            break;
+        case 1: // 数字键盘
+            [customKeyboard switchToKeyboardType:1];
+            NSLog(@"键盘显示，设置为数字键盘");
+            break;
+        case 2: // 符号键盘
+            [customKeyboard switchToKeyboardType:2];
+            NSLog(@"键盘显示，设置为符号键盘");
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
