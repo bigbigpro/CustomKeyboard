@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledLetterKeys;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledNumberKeys;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *shuffledSymbolKeys;
+@property (nonatomic, assign) BOOL hasGeneratedRandomKeys; // 是否已经生成过随机按键
 
 @end
 
@@ -150,6 +151,15 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         if (subview != self.titleLabel) {
             [subview removeFromSuperview];
         }
+    }
+    
+    // 如果启用了随机按键且还没有生成过随机按键，则生成随机按键
+    if (self.randomKeysEnabled && !self.hasGeneratedRandomKeys) {
+        NSLog(@"首次生成随机按键");
+        self.shuffledLetterKeys = [self shuffleKeys:self.letterKeys];
+        self.shuffledNumberKeys = [self shuffleKeys:self.numberKeys];
+        self.shuffledSymbolKeys = [self shuffleKeys:self.symbolKeys];
+        self.hasGeneratedRandomKeys = YES;
     }
     
     NSArray<NSArray<NSString *> *> *currentKeys = [self getCurrentKeys];
@@ -707,33 +717,31 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 }
 
 - (NSArray<NSArray<NSString *> *> *)getCurrentKeys {
-    // 如果启用了随机按键，检查是否已经生成了随机按键
+    // 如果启用了随机按键
     if (self.randomKeysEnabled) {
+        // 如果随机按键还没有生成，则生成它们
+        if (!self.shuffledLetterKeys) {
+            self.shuffledLetterKeys = [self shuffleKeys:self.letterKeys];
+        }
+        if (!self.shuffledNumberKeys) {
+            self.shuffledNumberKeys = [self shuffleKeys:self.numberKeys];
+        }
+        if (!self.shuffledSymbolKeys) {
+            self.shuffledSymbolKeys = [self shuffleKeys:self.symbolKeys];
+        }
+        
+        // 返回当前键盘类型的随机按键
         switch (self.currentKeyboardType) {
             case KeyboardTypeLetters:
-                if (!self.shuffledLetterKeys) {
-                    self.shuffledLetterKeys = [self shuffleKeys:self.letterKeys];
-                }
                 return self.shuffledLetterKeys;
             case KeyboardTypeNumbers:
-                if (!self.shuffledNumberKeys) {
-                    self.shuffledNumberKeys = [self shuffleKeys:self.numberKeys];
-                }
                 return self.shuffledNumberKeys;
             case KeyboardTypeSymbols:
-                if (!self.shuffledSymbolKeys) {
-                    self.shuffledSymbolKeys = [self shuffleKeys:self.symbolKeys];
-                }
                 return self.shuffledSymbolKeys;
             default:
                 return self.letterKeys;
         }
     } else {
-        // 如果未启用随机按键，清空缓存的随机按键
-        self.shuffledLetterKeys = nil;
-        self.shuffledNumberKeys = nil;
-        self.shuffledSymbolKeys = nil;
-        
         // 返回原始按键
         switch (self.currentKeyboardType) {
             case KeyboardTypeLetters:
@@ -755,6 +763,14 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     [self triggerHapticFeedbackForKey:keyText];
     
     if ([keyText isEqualToString:@"完成"]) {
+        // 如果启用了随机按键，重置标志，下次显示时重新随机
+        if (self.randomKeysEnabled) {
+            self.hasGeneratedRandomKeys = NO;
+            self.shuffledLetterKeys = nil;
+            self.shuffledNumberKeys = nil;
+            self.shuffledSymbolKeys = nil;
+        }
+        
         if ([self.delegate respondsToSelector:@selector(customKeyboardDidTapDone)]) {
             [self.delegate customKeyboardDidTapDone];
         }
@@ -861,8 +877,14 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     [super layoutSubviews];
     
     // 简单的布局检查，不调用任何可能导致递归的方法
-    if (self.superview && self.keyboardContainer.subviews.count == 0) {
-        // 如果键盘容器没有子视图，重新创建键盘
+    NSLog(@"layoutSubviews: superview=%@, keyboardContainer=%@, subviews.count=%lu", 
+          self.superview ? @"YES" : @"NO", 
+          self.keyboardContainer ? @"YES" : @"NO", 
+          (unsigned long)self.keyboardContainer.subviews.count);
+    
+    if (self.superview && self.keyboardContainer) {
+        // 如果键盘容器没有子视图（除了titleLabel），重新创建键盘
+        NSLog(@"layoutSubviews: 重新创建键盘");
         [self createKeyboard];
     }
 }
@@ -872,9 +894,20 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     
     // 当键盘被添加到父视图时，确保正确显示
     if (self.superview) {
+        // 如果启用了随机按键，重置标志并清空缓存，确保每次显示都重新随机
+        if (self.randomKeysEnabled) {
+            NSLog(@"键盘即将显示，重置随机按键");
+            self.hasGeneratedRandomKeys = NO;
+            self.shuffledLetterKeys = nil;
+            self.shuffledNumberKeys = nil;
+            self.shuffledSymbolKeys = nil;
+        }
+        
         // 延迟执行，避免在视图层次结构变化时立即布局
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.keyboardContainer.subviews.count == 0) {
+            NSLog(@"didMoveToSuperview: 检查键盘容器子视图数量: %lu", (unsigned long)self.keyboardContainer.subviews.count);
+            if (self.keyboardContainer) {
+                NSLog(@"didMoveToSuperview: 重新创建键盘");
                 [self createKeyboard];
             }
         });
@@ -957,7 +990,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 }
 
 - (void)regenerateRandomKeys {
-    // 清空缓存的随机按键，强制重新生成
+    // 重置标志，强制重新生成随机按键
+    self.hasGeneratedRandomKeys = NO;
     self.shuffledLetterKeys = nil;
     self.shuffledNumberKeys = nil;
     self.shuffledSymbolKeys = nil;
@@ -965,5 +999,6 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     // 重新创建键盘以应用新的随机设置
     [self createKeyboard];
 }
+
 
 @end

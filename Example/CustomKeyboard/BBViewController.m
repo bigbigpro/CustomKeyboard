@@ -124,6 +124,8 @@
     NSLog(@"自定义键盘已设置，高度: %.0f，震动反馈: %@", keyboardHeight, customKeyboard.hapticFeedbackEnabled ? @"启用" : @"禁用");
 }
 
+
+
 #pragma mark - CustomKeyboardDelegate
 
 - (void)customKeyboardDidTapKey:(NSString *)key {
