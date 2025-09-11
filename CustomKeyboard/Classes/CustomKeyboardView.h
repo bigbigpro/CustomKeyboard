@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hapticFeedbackEnabled; // 是否启用震动反馈
 @property (nonatomic, assign) BOOL randomKeysEnabled; // 是否启用随机按键
 @property (nonatomic, assign) NSInteger currentKeyboardType; // 当前键盘类型
+@property (nonatomic, assign) BOOL screenshotProtectionEnabled; // 是否启用截屏保护
 
 + (instancetype)sharedInstance;
 - (instancetype)initWithTitle:(NSString *)title;

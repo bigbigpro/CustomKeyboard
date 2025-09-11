@@ -46,7 +46,7 @@
     
     // 添加说明标签
     UILabel *instructionLabel = [[UILabel alloc] init];
-    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n支持随机按键、震动反馈和键盘类型切换\n点击文本框即可使用自定义键盘";
+    instructionLabel.text = @"这是一个自定义键盘的示例应用\n键盘支持字母、数字和符号输入\n支持随机按键、震动反馈、截屏保护和键盘类型切换\n点击文本框即可使用自定义键盘";
     instructionLabel.numberOfLines = 0;
     instructionLabel.textAlignment = NSTextAlignmentCenter;
     instructionLabel.font = [UIFont systemFontOfSize:14];
@@ -97,6 +97,19 @@
     randomLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:randomLabel];
     
+    // 添加截屏保护开关
+    UISwitch *screenshotSwitch = [[UISwitch alloc] init];
+    screenshotSwitch.on = YES; // 默认开启
+    screenshotSwitch.translatesAutoresizingMaskIntoConstraints = NO;
+    [screenshotSwitch addTarget:self action:@selector(screenshotSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:screenshotSwitch];
+    
+    UILabel *screenshotLabel = [[UILabel alloc] init];
+    screenshotLabel.text = @"截屏保护";
+    screenshotLabel.font = [UIFont systemFontOfSize:16];
+    screenshotLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:screenshotLabel];
+    
     [NSLayoutConstraint activateConstraints:@[
         [randomLabel.topAnchor constraintEqualToAnchor:hapticLabel.bottomAnchor constant:20],
         [randomLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
@@ -105,7 +118,20 @@
     
     [NSLayoutConstraint activateConstraints:@[
         [randomSwitch.topAnchor constraintEqualToAnchor:hapticLabel.bottomAnchor constant:20],
-        [randomSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
+        [randomSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20],
+        [randomSwitch.leadingAnchor constraintEqualToAnchor:randomLabel.trailingAnchor constant:20]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [screenshotLabel.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [screenshotLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
+        [screenshotLabel.centerYAnchor constraintEqualToAnchor:screenshotSwitch.centerYAnchor]
+    ]];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [screenshotSwitch.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [screenshotSwitch.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20],
+        [screenshotSwitch.leadingAnchor constraintEqualToAnchor:screenshotLabel.trailingAnchor constant:20]
     ]];
     
     // 添加键盘类型选择器
@@ -122,13 +148,13 @@
     [self.view addSubview:self.keyboardTypeControl];
     
     [NSLayoutConstraint activateConstraints:@[
-        [keyboardTypeLabel.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [keyboardTypeLabel.topAnchor constraintEqualToAnchor:screenshotLabel.bottomAnchor constant:20],
         [keyboardTypeLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
         [keyboardTypeLabel.centerYAnchor constraintEqualToAnchor:self.keyboardTypeControl.centerYAnchor]
     ]];
     
     [NSLayoutConstraint activateConstraints:@[
-        [self.keyboardTypeControl.topAnchor constraintEqualToAnchor:randomLabel.bottomAnchor constant:20],
+        [self.keyboardTypeControl.topAnchor constraintEqualToAnchor:screenshotLabel.bottomAnchor constant:20],
         [self.keyboardTypeControl.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20],
         [self.keyboardTypeControl.leadingAnchor constraintEqualToAnchor:keyboardTypeLabel.trailingAnchor constant:20]
     ]];
@@ -203,6 +229,13 @@
     [customKeyboard regenerateRandomKeys];
 }
 
+- (void)screenshotSwitchChanged:(UISwitch *)sender {
+    CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
+    customKeyboard.screenshotProtectionEnabled = sender.isOn;
+    
+    NSLog(@"截屏保护已%@", sender.isOn ? @"开启" : @"关闭");
+}
+
 - (void)keyboardTypeChanged:(UISegmentedControl *)sender {
     CustomKeyboardView *customKeyboard = [CustomKeyboardView sharedInstance];
     
@@ -246,6 +279,7 @@
     }
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -258,6 +292,7 @@
         NSLog(@"警告：键盘未正确设置");
     }
 }
+
 
 - (void)didReceiveMemoryWarning
 {

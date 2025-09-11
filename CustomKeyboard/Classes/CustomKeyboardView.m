@@ -55,14 +55,19 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         [self setHapticFeedbackEnabled:YES];
         // 默认关闭随机按键
         _randomKeysEnabled = NO;
+        // 默认启用截屏保护
+        _screenshotProtectionEnabled = YES;
         [self setupKeyboardData];
         [self setupUI];
+        [self setupScreenshotProtection];
     }
     return self;
 }
 
 - (void)dealloc {
     [self stopBackspaceTimer];
+    // 移除截屏保护通知监听
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupKeyboardData {
@@ -1000,5 +1005,72 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     [self createKeyboard];
 }
 
+#pragma mark - 截屏保护
+
+- (void)setupScreenshotProtection {
+    // 监听截屏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(screenshotTaken:)
+                                                 name:UIApplicationUserDidTakeScreenshotNotification
+                                               object:nil];
+}
+
+- (void)screenshotTaken:(NSNotification *)notification {
+    // 检查是否启用了截屏保护且键盘正在显示
+    if (self.screenshotProtectionEnabled && self.superview) {
+        // 显示隐私提示
+        [self showPrivacyAlert];
+    }
+}
+
+- (void)showPrivacyAlert {
+    // 获取当前最顶层的视图控制器
+    UIViewController *topViewController = [self getTopViewController];
+    if (!topViewController) {
+        return;
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"隐私保护"
+                                                                   message:@"当前界面涉及隐私内容，不允许截屏"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+    
+    // 在当前最顶层的视图控制器上显示提示
+    [topViewController presentViewController:alert animated:YES completion:nil];
+}
+
+- (UIViewController *)getTopViewController {
+    UIViewController *topViewController = nil;
+    
+    // 获取当前窗口
+    UIWindow *keyWindow = nil;
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene *windowScene in [UIApplication sharedApplication].connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        keyWindow = window;
+                        break;
+                    }
+                }
+            }
+        }
+    } else {
+        keyWindow = [UIApplication sharedApplication].keyWindow;
+    }
+    
+    if (keyWindow) {
+        topViewController = keyWindow.rootViewController;
+        while (topViewController.presentedViewController) {
+            topViewController = topViewController.presentedViewController;
+        }
+    }
+    
+    return topViewController;
+}
 
 @end
