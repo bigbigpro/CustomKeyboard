@@ -16,8 +16,7 @@ typedef NS_ENUM(NSInteger, KeyboardType) {
 
 typedef NS_ENUM(NSInteger, CapsLockState) {
     CapsLockStateOff,
-    CapsLockStateOn,
-    CapsLockStateCaps
+    CapsLockStateOn
 };
 
 @interface CustomKeyboardView ()
@@ -800,16 +799,10 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 
 - (void)capsLockButtonTapped:(UIButton *)sender {
     // 切换大小写状态
-    switch (self.capsLockState) {
-        case CapsLockStateOff:
-            self.capsLockState = CapsLockStateOn;
-            break;
-        case CapsLockStateOn:
-            self.capsLockState = CapsLockStateCaps;
-            break;
-        case CapsLockStateCaps:
-            self.capsLockState = CapsLockStateOff;
-            break;
+    if (self.capsLockState == CapsLockStateOff) {
+        self.capsLockState = CapsLockStateOn;
+    } else {
+        self.capsLockState = CapsLockStateOff;
     }
     
     
