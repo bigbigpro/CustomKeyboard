@@ -7,7 +7,6 @@
 //
 
 #import "CustomKeyboardView.h"
-#import <AudioToolbox/AudioToolbox.h>
 
 typedef NS_ENUM(NSInteger, KeyboardType) {
     KeyboardTypeLetters,
@@ -885,30 +884,24 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
         return;
     }
     
-    // 检查设备是否支持震动反馈
-    if (@available(iOS 10.0, *)) {
-        UIImpactFeedbackGenerator *feedbackGenerator;
-        
-        // 根据按键类型选择不同的震动强度
-        if ([keyText isEqualToString:@"完成"]) {
-            // 完成键使用强震动
-            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-        } else if ([keyText isEqualToString:@"空格"] || [keyText containsString:@"⌫"]) {
-            // 空格键和退格键使用中等震动
-            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-        } else if ([keyText isEqualToString:@"符"] || [keyText isEqualToString:@"123"] || [keyText isEqualToString:@"ABC"] || [keyText isEqualToString:@"#+="]) {
-            // 功能键使用轻震动
-            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-        } else {
-            // 字母和数字键使用轻震动
-            feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-        }
-        
-        [feedbackGenerator impactOccurred];
+    UIImpactFeedbackGenerator *feedbackGenerator;
+    
+    // 根据按键类型选择不同的震动强度
+    if ([keyText isEqualToString:@"完成"]) {
+        // 完成键使用强震动
+        feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
+    } else if ([keyText isEqualToString:@"空格"] || [keyText containsString:@"⌫"]) {
+        // 空格键和退格键使用中等震动
+        feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+    } else if ([keyText isEqualToString:@"符"] || [keyText isEqualToString:@"123"] || [keyText isEqualToString:@"ABC"] || [keyText isEqualToString:@"#+="]) {
+        // 功能键使用轻震动
+        feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
     } else {
-        // iOS 10 以下使用系统震动
-        AudioServicesPlaySystemSound(1519); // 轻微震动
+        // 字母和数字键使用轻震动
+        feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
     }
+    
+    [feedbackGenerator impactOccurred];
 }
 
 @end
