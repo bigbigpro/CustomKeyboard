@@ -7,7 +7,7 @@
 //
 
 #import "CustomKeyboardView.h"
-
+#import "ScreenShield.h"
 typedef NS_ENUM(NSInteger, KeyboardType) {
     KeyboardTypeLetters,
     KeyboardTypeNumbers,
@@ -899,6 +899,16 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
     
     // 当键盘被添加到父视图时，确保正确显示
     if (self.superview) {
+        // 启用截屏保护
+        if (self.screenshotProtectionEnabled) {
+            UIViewController *topViewController = [self getTopViewController];
+            if (topViewController) {
+                [[ScreenShield shared] protectWithView:topViewController.view];
+                
+                NSLog(@"CustomKeyboard: 已启用截屏保护");
+            }
+        }
+        
         // 如果启用了随机按键，重置标志并清空缓存，确保每次显示都重新随机
         if (self.randomKeysEnabled) {
             NSLog(@"键盘即将显示，重置随机按键");
@@ -916,6 +926,16 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
                 [self createKeyboard];
             }
         });
+    } else {
+        // 键盘被移除时，禁用截屏保护
+        if (self.screenshotProtectionEnabled) {
+            UIViewController *topViewController = [self getTopViewController];
+            if (topViewController) {
+                [[ScreenShield shared] unprotectWithView:topViewController.view];
+                
+                NSLog(@"CustomKeyboard: 已禁用截屏保护");
+            }
+        }
     }
 }
 
@@ -1008,11 +1028,8 @@ typedef NS_ENUM(NSInteger, CapsLockState) {
 #pragma mark - 截屏保护
 
 - (void)setupScreenshotProtection {
-    // 监听截屏通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(screenshotTaken:)
-                                                 name:UIApplicationUserDidTakeScreenshotNotification
-                                               object:nil];
+    // 截屏保护功能已移至 ScreenshotProtection 类处理
+    // 这里保留方法以保持接口兼容性
 }
 
 - (void)screenshotTaken:(NSNotification *)notification {

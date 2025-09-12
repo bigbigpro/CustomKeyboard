@@ -11,6 +11,7 @@
 #endif
 
 #import "CustomKeyboardView.h"
+#import "ScreenShield.h"
 
 FOUNDATION_EXPORT double CustomKeyboardVersionNumber;
 FOUNDATION_EXPORT const unsigned char CustomKeyboardVersionString[];
